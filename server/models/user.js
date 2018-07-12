@@ -7,7 +7,12 @@ const userSchema = new Schema({
   // hashed: String, // Defined with passportLocalMongoose
   // salt: String, // Defined with passportLocalMongoose
   name: {type:String, required: [true, "A name is required"]},
-  pictureUrl: String,
+  pictureUrl: {type:String},
+}, {
+    timestamps: {
+      createdAt: 'created_at',
+      updatedAt: 'updated_at'
+    }
 });
 
 // Add "email" (instead of "username"), "hash" and "salt" field to store the email (as username), the hashed password and the salt value

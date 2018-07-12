@@ -1,0 +1,9 @@
+[
+  {
+    "name": "Tiefgarage Berlin Hbf",
+    "adress": "Clara-Jaschke-Straße 88, 10557 Berlin",
+    "maxcapacity": 450,
+    "freespaces": 150,
+    "occupation": 78
+  }
+]
