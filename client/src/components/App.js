@@ -28,7 +28,7 @@ class App extends Component {
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">Welcome to Playing with DB APIs</h1>
           <Link to="/">Home</Link>
-          <Link to="/stations">Navigation</Link>
+          <Link to="/stations">Railwaystations</Link>
           {!api.isLoggedIn() && <Link to="/signup">Signup</Link> }
           {!api.isLoggedIn() && <Link to="/login">Login</Link> }
           {api.isLoggedIn() && <Link to="/" onClick={(e) => this.handleLogoutClick(e)}>Logout</Link> }

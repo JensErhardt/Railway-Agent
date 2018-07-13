@@ -14,7 +14,9 @@ var User = require('./models/user');
 var authRoutes = require('./routes/auth');
 
 
-var railwaystationsRoutes = require('./routes/railwaystations')
+var railwaystationsRoutes = require('./routes/railwaystations');
+var carparksRoutes = require('./routes/carparks');
+var rentalRoutes = require('./routes/rentalstations');
 var usersRoutes = require('./routes/users');
 
 require('./configs/database');
@@ -64,8 +66,10 @@ passport.use(strategy);
 
 // List all your API routes
 app.use('/api', authRoutes);
-app.use('/api/stations', railwaystationsRoutes)
+app.use('/api/stations', railwaystationsRoutes);
+app.use('/api/carparks', carparksRoutes);
 app.use('/api/users', usersRoutes);
+app.use('/api/rentals', rentalRoutes);
 
 
 // For any routes that starts with "/api", catch 404 and forward to error handler

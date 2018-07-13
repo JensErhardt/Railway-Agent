@@ -12,6 +12,13 @@ const errHandler = err => {
 export default {
   service: service,
   
+  getRailwaystations() {
+    return service
+    .get('/stations/call')
+    .then(res => res.data)
+    .catch(errHandler);
+  },
+
   getCountries() {
     return service
       .get('/countries')

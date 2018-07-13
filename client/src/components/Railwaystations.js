@@ -1,0 +1,31 @@
+import React, { Component } from 'react';
+import api from '../api';
+
+class Railwaystations extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      railwaystations: []
+    }
+  }
+  componentDidMount() {
+    api.getCountries()
+      .then(countries => {
+        console.log(countries)
+        this.setState({
+          railwaystations: railwaystations
+        })
+      })
+      .catch(err => console.log(err))
+  }
+  render() {                
+    return (
+      <div className="Railwaystations">
+        <h2>List of Railwaystations</h2>
+        {this.state.railwaystations.map((c, i) => <li key={i}>{c.name}</li>)}
+      </div>
+    );
+  }
+}
+
+export default Railwaystations;

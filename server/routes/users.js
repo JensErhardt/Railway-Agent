@@ -47,4 +47,16 @@ router.post('/first-user/pictures', parser.single('picture'), (req, res, next) =
     })
 });
 
+// Route to delete user profile
+
+router.get("/delete-profile", (req, res, next) => {
+  User.findByIdAndRemove(req.user.id)
+    .then(res.render("/"))
+    .catch((error) => {
+      console.log(error)
+    })
+  console.log("DEBUG user has been deleted")
+
+});
+
 module.exports = router;
