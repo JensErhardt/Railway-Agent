@@ -2,18 +2,14 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const railwaystationSchema = new Schema({
-  name: {type:String, required:[true]},
-  address: {type:String},
-  longitude: {type:Number},
-  latitude: {type:Number},
-  rentalstations: [
-    {
-      rentalstation: {
-        type: Schema.Types.ObjectId,
-        ref: 'rentalstation'
-      },
-    }
-  ]
+  number: { type: Number },
+  name: { type: String, required: [true] },
+  address: {
+    city: { type: String },
+    zipcode: { type: Number },
+    street: { type: String },
+  },
+  geographicCoordinates: { type: [Number, Number] }
 });
 
 module.exports = mongoose.model('Railwaystation', railwaystationSchema);
