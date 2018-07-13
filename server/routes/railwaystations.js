@@ -40,6 +40,17 @@ router.get('/call', (req, res, next) => {
     .catch(err => next(err))
 })
 
+// Route to get all railwaystations
+router.get('/all', (req, res, net) => {
+  console.log("DEBUG railwaystationsALL");
+  
+  Railwaystation.find()
+  .then(railwaystationData => {
+    res.json(railwaystationData);
+  }) 
+  .catch(err => next(err))
+})
+
 // Route to get one Railwaystation
 router.get('/:id', (req, res, next) => {
   console.log("railwaystation findOne");

@@ -14,7 +14,7 @@ export default {
   
   getRailwaystations() {
     return service
-    .get('/stations/call')
+    .get('/stations/all')
     .then(res => res.data)
     .catch(errHandler);
   },

@@ -9,9 +9,9 @@ class Railwaystations extends Component {
     }
   }
   componentDidMount() {
-    api.getCountries()
-      .then(countries => {
-        console.log(countries)
+    api.getRailwaystations()
+      .then(railwaystations => {
+        console.log(railwaystations)
         this.setState({
           railwaystations: railwaystations
         })

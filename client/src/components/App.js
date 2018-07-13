@@ -7,6 +7,7 @@ import Signup from './Signup';
 import api from '../api';
 import logo from '../logo.svg';
 import './App.css';
+import Railwaystations from './Railwaystations';
 
 class App extends Component {
   constructor(props) {
@@ -36,7 +37,7 @@ class App extends Component {
         </header>
         <Switch>
           <Route path="/" exact component={Home} />
-          <Route path="/stations" component={Home} />
+          <Route path="/stations" component={Railwaystations} />
           <Route path="/signup" component={Signup} />
           <Route path="/login" component={Login} />
           <Route path="/secret" component={Secret} />
