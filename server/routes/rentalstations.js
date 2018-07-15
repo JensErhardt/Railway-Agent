@@ -8,6 +8,8 @@ var router = express.Router();
 let railwaystationId = "5b48ad60e0527c6f6e99db27";
 
 // Route to get information about rental objects in a certain area
+// Radius 500m
+// Limit 100 items
 router.get('/call', (req, res, next) => {
   let longitude = "";
   let latitude = "";

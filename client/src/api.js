@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const service = axios.create({
-  baseURL: process.env.NODE_ENV === 'production' ? '/api' : 'http://localhost:3030/api',
+  baseURL: process.env.NODE_ENV === 'production' ? '/api' : 'http://localhost:3033/api',
 });
 
 const errHandler = err => {
@@ -11,19 +11,18 @@ const errHandler = err => {
 
 export default {
   service: service,
-  
+
   getRailwaystations() {
     return service
-    .get('/stations/all')
-    .then(res => res.data)
-    .catch(errHandler);
-  },
-
-  getCountries() {
-    return service
-      .get('/countries')
+      .get('/stations/all')
       .then(res => res.data)
       .catch(errHandler);
+  },
+  getRailwaystationDetails(id) {
+    return service
+      .get("/stations/" + id)
+      .then(res => res.data)
+      .catch(errHandler)
   },
 
   postCountries(data) {
@@ -32,14 +31,14 @@ export default {
       .then(res => res.data)
       .catch(errHandler);
   },
-  
+
   getSecret() {
     return service
       .get('/secret')
       .then(res => res.data)
       .catch(errHandler);
   },
-  
+
   signup(userInfo) {
     return service
       .post('/signup', userInfo)

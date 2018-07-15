@@ -38,27 +38,15 @@ router.get('/call', (req, res, next) => {
         })
       }
       console.log("carpparks api call successful")
-
     })
   axios.get('http://api.deutschebahn.com/bahnpark/v1/spaces/occupancies?limit=300')
     .then(occupancieData => {
       console.log("allocations call")
       for (let i = 0; i < occupancieData.data.allocations.length; i++) {
-
-        let allocation = occupancieData.data.allocations[i].allocation;
         let carparkId = occupancieData.data.allocations[i].space.id;
-        console.log(allocation);
-
-  
-
         Carpark.findOneAndUpdate({ carparkId: carparkId },
-          { $set: { allocation : occupancieData.data.allocations[i].allocation } },
-  
-          function (err) {
-            console.log(err)
-          }
+          { $set: { allocation: occupancieData.data.allocations[i].allocation } },
         )
-          
       }
       console.log("findOneAndUpdate finished");
     })

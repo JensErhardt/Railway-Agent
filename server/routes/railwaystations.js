@@ -1,5 +1,6 @@
 var express = require('express');
 const Railwaystation = require('../models/railwaystations');
+const Carpark = require('../models/carparks');
 const axios = require('axios');
 
 var router = express.Router();
@@ -43,22 +44,34 @@ router.get('/call', (req, res, next) => {
 // Route to get all railwaystations
 router.get('/all', (req, res, net) => {
   console.log("DEBUG railwaystationsALL");
-  
+
   Railwaystation.find()
-  .then(railwaystationData => {
-    res.json(railwaystationData);
-  }) 
-  .catch(err => next(err))
+    .then(railwaystationData => {
+      res.json(railwaystationData);
+    })
+    .catch(err => next(err))
 })
 
 // Route to get one Railwaystation
 router.get('/:id', (req, res, next) => {
-  console.log("railwaystation findOne");
-  Railwaystation.findById(req.params.id)
+  // console.log("railwaystation findOne");
+  // console.log("DEBUG req.params.id", req.params.id)
+  let railwaystationId = req.params.id;
+  Railwaystation.findById(railwaystationId)
     .then(railwaystationDetail => {
-      res.json(railwaystationDetail);
+      carparkStationNumber = railwaystationDetail.number;
+      Carpark.findOne({ "station.id": carparkStationNumber })
+        .then(carparkDetail => {
+          // console.log("DEBUG carparkDetail", carparkDetail)
+          railwaystationDetail.carpark = carparkDetail;
+          res.json(railwaystationDetail);
+        })
+        .catch(err => next(err));
+      // console.log(railwaystationDetail)
+      // console.log(carparkStationNumber);
+      // res.json(railwaystationDetail);
     })
-    .catch(err => next(err))
+    .catch(err => next(err));
 });
 
 

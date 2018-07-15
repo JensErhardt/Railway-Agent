@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import api from '../api';
-import { Link, Route } from 'react-router-dom';
-import RailwaystationDetail from './RailwaystationDetail';
 
-class Railwaystations extends Component {
+class Carparks extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -20,15 +18,11 @@ class Railwaystations extends Component {
       })
       .catch(err => console.log(err))
   }
-  render() {
+  render() {                
     return (
       <div className="Railwaystations">
         <h2>List of Railwaystations</h2>
-        <ul>
-          {this.state.railwaystations.map((e) =>
-            <li key={e._id}><Link to={"/stations/" + e._id}>{e.name}</Link></li>)}
-        </ul>
-        {/* <Route path="/stations/:id" component={RailwaystationDetail}/> */}
+        {this.state.railwaystations.map((c, i) => <li key={i}>{c.name}</li>)}
       </div>
     );
   }

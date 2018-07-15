@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Route, Link, Switch } from 'react-router-dom';
 import Home from './Home';
 import Secret from './Secret';
+import RailwaystationDetail from './RailwaystationDetail';
 import Login from './Login';
 import Signup from './Signup';
 import api from '../api';
@@ -37,10 +38,13 @@ class App extends Component {
         </header>
         <Switch>
           <Route path="/" exact component={Home} />
-          <Route path="/stations" component={Railwaystations} />
+          <Route path="/stations" exact component={Railwaystations} />
           <Route path="/signup" component={Signup} />
           <Route path="/login" component={Login} />
           <Route path="/secret" component={Secret} />
+
+        <Route path="/stations/:id"  component={RailwaystationDetail}/>
+
           <Route render={() => <h2>404</h2>} />
         </Switch>        
       </div>
