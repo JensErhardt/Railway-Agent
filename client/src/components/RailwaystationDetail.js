@@ -1,32 +1,36 @@
 import React, { Component } from 'react';
 import api from '../api';
-import { Link, Route } from 'react-router-dom';
 
 class RailwaystationDetail extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      railwaystationDetail: []
+      stationDetail: []
     }
   }
   componentDidMount() {
-    console.log("DEBUG railwaystationDetail")
     api.getRailwaystationDetails(this.props.match.params.id)
-      .then(railwaystationDetail => {
-        console.log("DEBUG railwaystationDetail")
+      .then(stationDetail => {       
         this.setState({
-          railwaystationDetail: railwaystationDetail
+          stationDetail
         })
       })
       .catch(err => console.log(err))
   }
+  com
+  
   render() {
+    if (!this.state.stationDetail[0]) {
+      console.log("DEBUG stationDetail not loaded yet")
+    } else {
+    console.log("DEBUG stationDetail",this.state.stationDetail[0].name)
+    let stationDetail = this.state.stationDetail;
+    console.log(stationDetail[0].name);
+    }
     return (
       <div className="railwaystationDetail">
-        
         <h2>Details</h2>
-        name: {this.state.railwaystationDetail.name} <br/>
-         <br/>
+        name: {} <br/>
       </div>
     );
   }

@@ -62,14 +62,14 @@ router.get('/:id', (req, res, next) => {
       carparkStationNumber = railwaystationDetail.number;
       Carpark.findOne({ "station.id": carparkStationNumber })
         .then(carparkDetail => {
-          // let stationDetail = [
-          //   railwaystationDetail,
-          //   carparkDetail
-          // ]
-          let stationDetail = {
-            railwaystationDetail : railwaystationDetail,
-            carparkDetail : carparkDetail
-        }
+          let stationDetail = [
+            railwaystationDetail,
+            carparkDetail
+          ]
+          // let stationDetail = {
+            // railwaystationDetail : railwaystationDetail,
+            // carparkDetail : carparkDetail
+        // }
           // console.log(stationDetail);
           
           res.json(stationDetail);
