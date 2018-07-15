@@ -4,6 +4,7 @@ const { Schema } = mongoose;
 const railwaystationSchema = new Schema({
   number: { type: Number },
   name: { type: String, required: [true] },
+  category: { type: Number },
   address: {
     city: { type: String },
     zipcode: { type: Number },

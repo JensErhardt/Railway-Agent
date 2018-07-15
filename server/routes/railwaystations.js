@@ -9,7 +9,7 @@ var router = express.Router();
 // Route to get all Railwaystations
 router.get('/', (req, res, next) => {
   console.log("railwaystation findAll")
-  Railwaystation.find()
+  Railwaystation.find({ acceptedToken: false })
     .then(railways => {
       res.json(railways)
     })
@@ -26,6 +26,7 @@ router.get('/call', (req, res, next) => {
         if (railwaystationData.data.result[i].evaNumbers[0] === undefined) { continue; }
         let newRailwaystation = new Railwaystation({
           number: railwaystationData.data.result[i].number,
+          category: railwaystationData.data.result[i].category,
           name: railwaystationData.data.result[i].name,
           address: railwaystationData.data.result[i].mailingAddress,
           geographicCoordinates: railwaystationData.data.result[i].evaNumbers[0].geographicCoordinates.coordinates
@@ -45,7 +46,7 @@ router.get('/call', (req, res, next) => {
 router.get('/all', (req, res, net) => {
   console.log("DEBUG railwaystationsALL");
 
-  Railwaystation.find()
+  Railwaystation.find({ category: 1 })
     .then(railwaystationData => {
       res.json(railwaystationData);
     })
@@ -54,22 +55,26 @@ router.get('/all', (req, res, net) => {
 
 // Route to get one Railwaystation
 router.get('/:id', (req, res, next) => {
-  // console.log("railwaystation findOne");
-  // console.log("DEBUG req.params.id", req.params.id)
+
   let railwaystationId = req.params.id;
   Railwaystation.findById(railwaystationId)
     .then(railwaystationDetail => {
       carparkStationNumber = railwaystationDetail.number;
       Carpark.findOne({ "station.id": carparkStationNumber })
         .then(carparkDetail => {
-          // console.log("DEBUG carparkDetail", carparkDetail)
-          railwaystationDetail.carpark = carparkDetail;
-          res.json(railwaystationDetail);
+          // let stationDetail = [
+          //   railwaystationDetail,
+          //   carparkDetail
+          // ]
+          let stationDetail = {
+            railwaystationDetail : railwaystationDetail,
+            carparkDetail : carparkDetail
+        }
+          // console.log(stationDetail);
+          
+          res.json(stationDetail);
         })
         .catch(err => next(err));
-      // console.log(railwaystationDetail)
-      // console.log(carparkStationNumber);
-      // res.json(railwaystationDetail);
     })
     .catch(err => next(err));
 });
