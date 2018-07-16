@@ -14,6 +14,7 @@
     "cors": "^2.8.4",
     "debug": "~2.6.9",
     "dotenv": "^5.0.1",
+    "downshift": "^2.0.14",
     "express": "^4.16.3",
     "google-maps-react": "^2.0.2",
     "jade": "~1.11.0",
@@ -25,6 +26,7 @@
     "passport": "^0.4.0",
     "passport-jwt": "^4.0.0",
     "passport-local-mongoose": "^5.0.0",
+    "react-search-input": "^0.11.3",
     "serve-favicon": "~2.4.5"
   }
 }

@@ -1,7 +1,7 @@
 var express = require('express');
 const Carpark = require('../models/carparks');
 const axios = require('axios');
-
+const Railwaystation = require('../models/railwaystations');
 var router = express.Router();
 
 // Route to get all carparks
@@ -53,14 +53,36 @@ router.get('/call', (req, res, next) => {
     .catch(err => next(err))
 })
 
-// Route to get one capark
-// router.get('/:id', (req, res, next) => {
-//   console.log("carpark findOne");
-//   Carpark.findById(req.params.id)
-//     .then(carparkDetail => {
-//       res.json(carparkDetail);
-//     })
-//     .catch(err => next(err))
-// });
+router.get('/prognoses/:id', (req, res, next) => {
+  let stationId = req.params.id;
+
+  //Query to find out car park id
+  Railwaystation.findById(stationId)
+    .then(stationData => {
+      stationId = stationData.number;
+      Carpark.find({ "station.id": stationId })
+        .then(carparkData => {
+          let carparkId = carparkData[0].carparkId;
+          console.log("DEBUG carparkId", carparkData[0].carparkId);
+          
+          axios.defaults.headers.common['Authorization'] = 'Bearer bf8e861cad4565da30955ff66c53f8c1';
+          axios.get(`http://api.deutschebahn.com/bahnpark/v1/spaces/${carparkId}/prognoses`)
+            .then(prognosesData => {
+
+              let prognosesDataExport = {
+                carparkId: prognosesData.data.space.id,
+                stationId: prognosesData.data.space.station.id,
+                name: prognosesData.data.space.nameDisplay,
+                prognosesText: prognosesData.data.prognoses[0].prognosedAllocation.text,
+                timestamp: new Date()+2 
+              };
+              res.json(prognosesDataExport)
+            })
+            .catch(err => next(err))
+        })
+        .catch(err => next(err))
+    })
+    .catch(err => next(err))
+})
 
 module.exports = router;

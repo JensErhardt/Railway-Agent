@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const service = axios.create({
-  baseURL: process.env.NODE_ENV === 'production' ? '/api' : 'http://localhost:3033/api',
+  baseURL: process.env.NODE_ENV === 'production' ? '/api' : 'http://localhost:3036/api',
 });
 
 const errHandler = err => {
@@ -23,6 +23,20 @@ export default {
       .get("/stations/" + id)
       .then(res => res.data)
       .catch(errHandler)
+  },
+
+  getRentalObjects(id) {
+    return service 
+    .get('rentals/' + id)
+    .then(res => res.data)
+    .catch(errHandler);
+  },
+
+  getCarparkPrognoses(id) {
+    return service
+    .get('carparks/prognoses/' + id)
+    .then(res => res.data)
+    .catch(errHandler)
   },
 
   postCountries(data) {

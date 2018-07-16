@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 // import { Route, Switch, NavLink, Link } from 'react-router-dom';
 import api from '../api';
+import { log } from 'util';
 // import './Secret.css';
 
 class Secret extends Component {
@@ -19,6 +20,7 @@ class Secret extends Component {
       })
   }
   render() {                
+    
     return (
       <div className="Secret">
         <h2>Secret</h2>

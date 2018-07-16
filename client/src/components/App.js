@@ -48,7 +48,7 @@ class App extends Component {
           {!api.isLoggedIn() && <Link to="/signup">Signup</Link>}
           {!api.isLoggedIn() && <Link to="/login">Login</Link>}
           {api.isLoggedIn() && <Link to="/" onClick={(e) => this.handleLogoutClick(e)}>Logout</Link>}
-          <Link to="/secret">Secret</Link>
+          <Link to="/profile">Profile</Link>
         </header>
         <Switch>
           <Route path="/" exact component={Railwaystations} />
@@ -56,7 +56,7 @@ class App extends Component {
           {/* <Route path="/stations" component={Railwaystations} /> */}
           <Route path="/signup" component={Signup} />
           <Route path="/login" component={Login} />
-          <Route path="/secret" component={Secret} />
+          <Route path="/profile" component={Secret} />
           <Route path="/stations/:id" component={RailwaystationDetail} />
           <Route render={() => <h2>404</h2>} />
         </Switch>
