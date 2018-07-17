@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Table } from 'reactstrap';
 import api from '../api';
 
 class RailwaystationDetail extends Component {
@@ -26,31 +27,70 @@ class RailwaystationDetail extends Component {
           })
       })
       .catch(err => console.log(err))
-
-      .catch(err => console.log(err));
   }
 
   render() {
-    console.log("DEBUG state", this.state);
+    
     return (
       this.state.stationDetail && <div className="railwaystationDetail">
-        <h1>{this.state.stationDetail.railwaystationDetail.name}</h1>
+        <div>
+          <address>
+            <strong>{this.state.stationDetail.railwaystationDetail.name}</strong> <br />
+            {this.state.stationDetail.railwaystationDetail.address.street} <br />
+            {this.state.stationDetail.railwaystationDetail.address.zipcode} {this.state.stationDetail.railwaystationDetail.address.city} <br />
+          </address>
 
-        Street: {this.state.stationDetail.railwaystationDetail.address.street} <br />
-        Zipcode: {this.state.stationDetail.railwaystationDetail.address.zipcode} <br />
-        City: {this.state.stationDetail.railwaystationDetail.address.city} <br />
+          <Table striped>
+            <thead>
+              <tr>
+                <th>Flinkster & Call A Bike</th>
+                <th></th>
+              </tr>
+            </thead>
 
-        <h2>Carpark: {this.state.stationDetail.carparkDetail.name}</h2>
-        Entrance: {this.state.stationDetail.carparkDetail.address.street} <br />
-        Zipcode: {this.state.stationDetail.carparkDetail.address.postalCode} <br />
-        Total Spaces: {this.state.stationDetail.carparkDetail.numberParkingPlaces}<br />
-        Handicaped Spaces: {this.state.stationDetail.carparkDetail.numberHandicapedPlaces}<br />
-        Free Spaces: {this.state.prognosesData.prognosesText} <br />
-        Last Update: {this.state.prognosesData.timestamp} <br/>
+            <tbody>
+              <tr>
+                <td>Available Bikes</td>
+                <td>{this.state.rentalObjects.bikesAvailable}</td>
+              </tr>
+              <tr>
+                <td>Available Cars</td>
+                <td>{this.state.rentalObjects.carsAvailable}</td>
+              </tr>
+            </tbody>
 
-        <h2> Car- and Bikesharing </h2>
-        Free Bikes: {this.state.rentalObjects.bikesAvailable}<br />
-        Free Cars: {this.state.rentalObjects.carsAvailable}<br />
+            <thead>
+              <tr>
+                <th>Parking Information</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Carpark</td>
+                <td><a target="_blank" href={this.state.stationDetail.carparkDetail.carparkUrl}>{this.state.stationDetail.carparkDetail.name}</a></td>
+              </tr>
+              <tr>
+                <td>Entrance</td>
+                <td>{this.state.stationDetail.carparkDetail.address.street}, {this.state.stationDetail.carparkDetail.address.postalCode} {this.state.stationDetail.railwaystationDetail.address.city}</td>
+              </tr>
+              <tr>
+                <td>Prognoses for available spaces in 1h</td>
+                <td>{this.state.prognosesData.prognosesText}</td>
+              </tr>
+              <tr>
+                <td>Number of handicaped places</td>
+                <td>{this.state.stationDetail.carparkDetail.numberHandicapedPlaces}</td>
+              </tr>
+              <tr>
+                <td>Number of total spaces</td>
+                <td>{this.state.stationDetail.carparkDetail.numberParkingPlaces}</td>
+              </tr>
+
+            </tbody>
+          </Table>
+
+        </div>
       </div>
     );
   }

@@ -79,7 +79,7 @@ export class MapContainer extends Component {
 
 		{
 			this.state.isOpen &&
-		 <InfoWindow visible={true} >
+		 <InfoWindow  >
 			 <h1>SUPER TEST</h1>
 		 </InfoWindow>
 	 	}

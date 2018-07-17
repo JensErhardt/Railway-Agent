@@ -13,9 +13,7 @@ class Railwaystations extends Component {
     super(props)
     this.state = {
       railwaystations: [],
-      value: null,
-
-
+      value: "",
     }
     this.handleChange = this.handleChange.bind(this);
     // this.handleSubmit = this.handleSubmit.bind(this);
@@ -23,9 +21,9 @@ class Railwaystations extends Component {
 
   handleChange(event) {
 
-    this.setState({ value: value });
-
+    
     let value = event.target.value
+    this.setState({ value: value });
     let comparator = value.toUpperCase();
 
     console.log(value);
@@ -45,9 +43,9 @@ class Railwaystations extends Component {
         stateField.push(this.state.railwaystations[i])
         console.log(stateField);
         
-        this.setState({
-          railwaystations: stateField,
-        })
+        // this.setState({
+        //   railwaystations: stateField,
+        // })
       }
     }
 
@@ -65,16 +63,19 @@ class Railwaystations extends Component {
       .catch(err => console.log(err))
   }
   render() {
+    let filteredStations = this.state.railwaystations
+    .filter(railwaystation =>  railwaystation.name.toUpperCase().includes(this.state.value.toUpperCase()))
 
     return (
       <div className="Railwaystations">
-        <h2>List of Railwaystations</h2>
+        <h2>Station Agent</h2>
         <SearchBar onChange={this.handleChange} stations={this.state.railwaystations} />
         <ul>
-          {this.state.railwaystations.map((e) =>
+          {filteredStations
+          .map((e) =>
             <li key={e._id}><Link to={"/stations/" + e._id}>{e.name}</Link></li>)}
         </ul>
-        <MapContainer stations={this.state.railwaystations} />
+        <MapContainer stations={filteredStations} />
         {/* <RailwaystationDetail stations={this.state.railwaystations}/> */}
         <Route path="/stations/:id" component={RailwaystationDetail} />
       </div>

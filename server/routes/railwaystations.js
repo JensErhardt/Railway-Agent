@@ -18,27 +18,37 @@ router.get('/', (req, res, next) => {
 
 // Route to call the API and fetch all railwaystations in the databank
 router.get('/call', (req, res, next) => {
+  let counter = 0
   console.log("station api call")
   axios.defaults.headers.common['Authorization'] = 'Bearer bf8e861cad4565da30955ff66c53f8c1';
-  axios.get('http://api.deutschebahn.com/stada/v2/stations')
+
+  Railwaystation.deleteMany()
+    .then(() => axios.get('http://api.deutschebahn.com/stada/v2/stations'))
     .then(railwaystationData => {
       for (let i = 0; i < railwaystationData.data.result.length; i++) {
         if (railwaystationData.data.result[i].evaNumbers[0] === undefined) { continue; }
-        let newRailwaystation = new Railwaystation({
-          number: railwaystationData.data.result[i].number,
-          category: railwaystationData.data.result[i].category,
-          name: railwaystationData.data.result[i].name,
-          address: railwaystationData.data.result[i].mailingAddress,
-          geographicCoordinates: railwaystationData.data.result[i].evaNumbers[0].geographicCoordinates.coordinates
-        });
-        newRailwaystation.save((err) => {
-          if (err) {
-            console.log(err);
-          }
-        })
+        let stationId = railwaystationData.data.result[i].number;
+
+        // console.log(stationId);
+        Carpark.findOne({ "station.id": stationId })
+          .then(carparkData => {
+            console.log("DEBUG carparkData", i, carparkData);
+            if (carparkData) {
+              console.log("counter", ++counter);
+              Railwaystation.create({
+                number: railwaystationData.data.result[i].number,
+                category: railwaystationData.data.result[i].category,
+                name: railwaystationData.data.result[i].name,
+                address: railwaystationData.data.result[i].mailingAddress,
+                geographicCoordinates: railwaystationData.data.result[i].evaNumbers[0].geographicCoordinates.coordinates
+              })
+            }
+          })
+          .catch(err => next(err))
       }
       console.log("station call successful")
     })
+    .then()
     .catch(err => next(err))
 })
 
@@ -46,7 +56,7 @@ router.get('/call', (req, res, next) => {
 router.get('/all', (req, res, net) => {
   console.log("DEBUG railwaystationsALL");
 
-  Railwaystation.find({ category: 1 })
+  Railwaystation.find()
     .then(railwaystationData => {
       res.json(railwaystationData);
     })
@@ -62,16 +72,10 @@ router.get('/:id', (req, res, next) => {
       carparkStationNumber = railwaystationDetail.number;
       Carpark.findOne({ "station.id": carparkStationNumber })
         .then(carparkDetail => {
-          // let stationDetail = [
-            // railwaystationDetail,
-            // carparkDetail
-          // ]
           let stationDetail = {
-            railwaystationDetail : railwaystationDetail,
-            carparkDetail : carparkDetail
-        }
-          // console.log(stationDetail);
-          
+            railwaystationDetail: railwaystationDetail,
+            carparkDetail: carparkDetail
+          }
           res.json(stationDetail);
         })
         .catch(err => next(err));

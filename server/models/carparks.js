@@ -28,7 +28,8 @@ const carparkSchema = new Schema({
     category: { type: Number, default: 0 },
     text: { type: String, default: "no data availble" },
   },
-  occupation: { type: Number }
+  occupation: { type: Number },
+  carparkUrl: { type: String }
 });
 
 module.exports = mongoose.model('Carpark', carparkSchema);

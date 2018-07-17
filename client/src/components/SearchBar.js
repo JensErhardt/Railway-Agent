@@ -1,44 +1,26 @@
 import React, { Component } from 'react';
-
+import { Form, FormGroup, Label, Input, FormFeedback, FormText } from 'reactstrap';
 
 class Searchbar extends Component {
-  // constructor(props) {
-  //   super(props)
-  //   this.state = { value: '' };
-
-
-  // }
-
-  // handleChange(event) {
-  //   this.setState({ value: event.target.value });
-  // }
-
-  // handleSubmit(event) {
-
-  //   let comparator = this.state.value.toUpperCase();
-  //   let cities = []
-  //   for (let i = 0; i < this.props.stations.length; i++) {
-  //     cities.push(this.props.stations[i].address.city);
-  //   }
-  //   let resultField = cities.map(function (elt) { return elt.toUpperCase() })
-
-  //   for (let i = 0; i < resultField.length; i++) {
-  //     if (comparator === resultField[i]) {
-  //       console.log("MATCH", resultField[i])
-  //     }
-  //   }
-  //   event.preventDefault();
-  // }
 
   render() {
     return (
-        <label>
-          City:
-          <input
+
+       <FormGroup className="container">
+          <Label for="exampleEmail">Station search</Label>
+          <Input
             type="text"
+            name ="search"
+            id="searchInput"
+            placeholder="Berlin..."
             value={this.props.value}
-            onChange={this.props.onChange} />
-        </label>
+            onChange={this.props.onChange} 
+            bSize="lg"
+            />
+          <FormFeedback>You will not be able to see this</FormFeedback>
+          <FormText>Please enter city or station to search for</FormText>
+        </FormGroup>
+
 
 
     )

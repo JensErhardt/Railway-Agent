@@ -10,16 +10,38 @@ import api from '../api';
 import logo from '../logo.svg';
 import './App.css';
 import Railwaystations from './Railwaystations';
-import { log } from 'util';
+import {
+  Collapse,
+  Navbar,
+  NavbarToggler,
+  NavbarBrand,
+  Nav,
+  NavItem,
+  NavLink,
+  UncontrolledDropdown,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem
+} from 'reactstrap';
+
 
 class App extends Component {
   constructor(props) {
     super(props)
+
+    this.toggle = this.toggle.bind(this)
     this.state = {
       stations: [],
-      search: []
+      search: [],
+      isOpen: false
     }
     api.loadUser();
+  }
+
+  toggle() {
+    this.setState({
+      isOpen: !this.isOpen
+    })
   }
 
   componentDidMount() {
@@ -40,20 +62,44 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to Playing with DB APIs</h1>
-          <Link to="/">Home</Link>
-          {/* <Link to="/map">Map</Link> */}
-          {/* <Link to="/stations">Railwaystations</Link> */}
-          {!api.isLoggedIn() && <Link to="/signup">Signup</Link>}
-          {!api.isLoggedIn() && <Link to="/login">Login</Link>}
-          {api.isLoggedIn() && <Link to="/" onClick={(e) => this.handleLogoutClick(e)}>Logout</Link>}
-          <Link to="/profile">Profile</Link>
         </header>
+
+        <div>
+          <Navbar color="light" light expand="md">
+            <NavbarBrand href="/">Home</NavbarBrand>
+            <NavbarToggler onClick={this.toggle} />
+            <Collapse isOpen={this.state.isOpen} navbar>
+              <Nav className="ml-auto" navbar>
+                <NavItem>
+                  <NavLink href="https://www.google.de/maps">Google Maps</NavLink>
+                </NavItem>
+                <UncontrolledDropdown nav inNavbar>
+                  <DropdownToggle nav caret>
+                    Menu
+                </DropdownToggle>
+                  <DropdownMenu right>
+                    <DropdownItem>
+                      {!api.isLoggedIn() && <Link to="/signup">Signup</Link>}
+                    </DropdownItem>
+                    <DropdownItem>
+                      {!api.isLoggedIn() && <Link to="/login">Login</Link>}
+                    </DropdownItem>
+                    <DropdownItem>
+                      <Link to="/profile">Profile</Link>
+                    </DropdownItem>
+                    <DropdownItem divider />
+                    <DropdownItem>
+                      {api.isLoggedIn() && <Link to="/" onClick={(e) => this.handleLogoutClick(e)}>Logout</Link>}
+                    </DropdownItem>
+                  </DropdownMenu>
+                </UncontrolledDropdown>
+              </Nav>
+            </Collapse>
+          </Navbar>
+        </div>
+
         <Switch>
           <Route path="/" exact component={Railwaystations} />
-          {/* <Route path="/map" component={Map} /> */}
-          {/* <Route path="/stations" component={Railwaystations} /> */}
           <Route path="/signup" component={Signup} />
           <Route path="/login" component={Login} />
           <Route path="/profile" component={Secret} />

@@ -21,21 +21,24 @@ router.get('/call', (req, res, next) => {
   axios.get('http://api.deutschebahn.com/bahnpark/v1/spaces?limit=300')
     .then(carparkData => {
       for (let i = 0; i < carparkData.data.items.length; i++) {
-        let newCarpark = new Carpark({
-          name: carparkData.data.items[i].title,
-          carparkId: carparkData.data.items[i].id,
-          station: carparkData.data.items[i].station,
-          address: carparkData.data.items[i].address,
-          geoLocation: carparkData.data.items[i].geoLocation,
-          spaceType: carparkData.data.items[i].spaceType,
-          numberParkingPlaces: carparkData.data.items[i].numberParkingPlaces,
-          numberHandicapedPlaces: carparkData.data.items[i].numberHandicapedPlaces,
-        });
-        newCarpark.save((err) => {
-          if (err) {
-            console.log(err);
-          }
-        })
+        if (carparkData.data.items[i].facilityType === "Schrankenanlage") {
+          let newCarpark = new Carpark({
+            name: carparkData.data.items[i].title,
+            carparkId: carparkData.data.items[i].id,
+            station: carparkData.data.items[i].station,
+            address: carparkData.data.items[i].address,
+            geoLocation: carparkData.data.items[i].geoLocation,
+            spaceType: carparkData.data.items[i].spaceType,
+            numberParkingPlaces: carparkData.data.items[i].numberParkingPlaces,
+            numberHandicapedPlaces: carparkData.data.items[i].numberHandicapedPlaces,
+            carparkUrl: carparkData.data.items[i].url  
+          });
+          newCarpark.save((err) => {
+            if (err) {
+              console.log(err);
+            }
+          })
+        }
       }
       console.log("carpparks api call successful")
     })
@@ -64,7 +67,7 @@ router.get('/prognoses/:id', (req, res, next) => {
         .then(carparkData => {
           let carparkId = carparkData[0].carparkId;
           console.log("DEBUG carparkId", carparkData[0].carparkId);
-          
+
           axios.defaults.headers.common['Authorization'] = 'Bearer bf8e861cad4565da30955ff66c53f8c1';
           axios.get(`http://api.deutschebahn.com/bahnpark/v1/spaces/${carparkId}/prognoses`)
             .then(prognosesData => {
@@ -74,7 +77,7 @@ router.get('/prognoses/:id', (req, res, next) => {
                 stationId: prognosesData.data.space.station.id,
                 name: prognosesData.data.space.nameDisplay,
                 prognosesText: prognosesData.data.prognoses[0].prognosedAllocation.text,
-                timestamp: new Date()+2 
+                timestamp: new Date() + 2
               };
               res.json(prognosesDataExport)
             })
