@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import api from '../api';
+import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
+
 
 class Signup extends Component {
   constructor(props) {
@@ -14,7 +16,7 @@ class Signup extends Component {
   handleInputChange(stateFieldName, event) {
     let newState = {}
     newState[stateFieldName] = event.target.value
-  
+
     this.setState(newState)
   }
 
@@ -35,16 +37,43 @@ class Signup extends Component {
       })
   }
 
-  render() {   
+  render() {
     return (
       <div className="Signup">
+
         <h2>Signup</h2>
-        <form>
-          Email: <input type="text" value={this.state.email} onChange={(e) => {this.handleInputChange("email", e)}} /> <br/>
-          Name: <input type="text" value={this.state.name} onChange={(e) => {this.handleInputChange("name", e)}} /> <br/>
-          Password: <input type="password" value={this.state.password} onChange={(e) => {this.handleInputChange("password", e)}}  /> <br/>
-          <button onClick={(e) => this.handleClick(e)}>Signup</button>
-        </form>
+        <FormGroup className="container">
+
+          <Input
+            type="text"
+            value={this.state.email}
+            placeholder="johndoe@gmail.com"
+            onChange={(e) => { this.handleInputChange("email", e) }}
+            bSize="lg"
+          />
+          <FormText>Please enter email</FormText>
+
+          <Input
+            type="text"
+            placeholder="johndoe"
+            value={this.state.name}
+            onChange={(e) => { this.handleInputChange("name", e) }}
+            bSize="lg"
+          />
+          <FormText>Please enter username</FormText>
+
+          <Input
+            type="password"
+            placeholder="passwordigel123"
+            value={this.state.password}
+            onChange={(e) => { this.handleInputChange("password", e) }}
+            bSize="lg"
+          />
+          <FormText>Please enter password</FormText>
+
+          <Button color="primary" onClick={(e) => this.handleClick(e)}>Signup</Button>
+        </FormGroup>
+
       </div>
     );
   }

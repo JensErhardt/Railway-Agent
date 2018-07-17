@@ -71,12 +71,12 @@ class RailwaystationDetail extends Component {
                 <td><a target="_blank" href={this.state.stationDetail.carparkDetail.carparkUrl}>{this.state.stationDetail.carparkDetail.name}</a></td>
               </tr>
               <tr>
-                <td>Entrance</td>
-                <td>{this.state.stationDetail.carparkDetail.address.street}, {this.state.stationDetail.carparkDetail.address.postalCode} {this.state.stationDetail.railwaystationDetail.address.city}</td>
-              </tr>
-              <tr>
                 <td>Prognoses for available spaces in 1h</td>
                 <td>{this.state.prognosesData.prognosesText}</td>
+              </tr>
+              <tr>
+                <td>Entrance</td>
+                <td>{this.state.stationDetail.carparkDetail.address.street}, {this.state.stationDetail.carparkDetail.address.postalCode} {this.state.stationDetail.railwaystationDetail.address.city}</td>
               </tr>
               <tr>
                 <td>Number of handicaped places</td>

@@ -7,7 +7,7 @@ class Searchbar extends Component {
     return (
 
        <FormGroup className="container">
-          <Label for="exampleEmail">Station search</Label>
+          <Label for="exampleSearch"></Label>
           <Input
             type="text"
             name ="search"
@@ -17,7 +17,6 @@ class Searchbar extends Component {
             onChange={this.props.onChange} 
             bSize="lg"
             />
-          <FormFeedback>You will not be able to see this</FormFeedback>
           <FormText>Please enter city or station to search for</FormText>
         </FormGroup>
 

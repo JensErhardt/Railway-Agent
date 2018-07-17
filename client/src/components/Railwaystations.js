@@ -4,6 +4,7 @@ import { Link, Route } from 'react-router-dom';
 import RailwaystationDetail from './RailwaystationDetail';
 import SearchBar from './SearchBar';
 import MapContainer from './MapContainer';
+import { Container, Row, Col, ListGroup, ListGroupItem } from 'reactstrap';
 
 
 
@@ -16,12 +17,11 @@ class Railwaystations extends Component {
       value: "",
     }
     this.handleChange = this.handleChange.bind(this);
-    // this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleChange(event) {
 
-    
+
     let value = event.target.value
     this.setState({ value: value });
     let comparator = value.toUpperCase();
@@ -42,10 +42,6 @@ class Railwaystations extends Component {
         console.log("MATCH", resultField[i])
         stateField.push(this.state.railwaystations[i])
         console.log(stateField);
-        
-        // this.setState({
-        //   railwaystations: stateField,
-        // })
       }
     }
 
@@ -54,30 +50,37 @@ class Railwaystations extends Component {
   componentDidMount() {
     api.getRailwaystations()
       .then(railwaystations => {
+        railwaystations.sort(
+          function(a,b) {return (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0);} 
+        ); 
         console.log(railwaystations)
         this.setState({
           railwaystations: railwaystations,
-
         })
       })
       .catch(err => console.log(err))
   }
   render() {
     let filteredStations = this.state.railwaystations
-    .filter(railwaystation =>  railwaystation.name.toUpperCase().includes(this.state.value.toUpperCase()))
+      .filter(railwaystation => railwaystation.name.toUpperCase().includes(this.state.value.toUpperCase()))
 
     return (
       <div className="Railwaystations">
-        <h2>Station Agent</h2>
+      <Container>
         <SearchBar onChange={this.handleChange} stations={this.state.railwaystations} />
-        <ul>
+        <Row>
+        <Col>
+        <ListGroup>
           {filteredStations
-          .map((e) =>
-            <li key={e._id}><Link to={"/stations/" + e._id}>{e.name}</Link></li>)}
-        </ul>
+            .map((e) =>
+              <ListGroupItem key={e._id}><Link to={"/stations/" + e._id}>{e.name}</Link></ListGroupItem>)}
+        </ListGroup>
+        </Col>
+        <Col>
         <MapContainer stations={filteredStations} />
-        {/* <RailwaystationDetail stations={this.state.railwaystations}/> */}
-        <Route path="/stations/:id" component={RailwaystationDetail} />
+         </Col>
+         </Row>
+          </Container>
       </div>
     );
   }

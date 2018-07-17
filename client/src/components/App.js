@@ -1,13 +1,10 @@
 import React, { Component } from 'react';
 import { Route, Link, Switch } from 'react-router-dom';
-import Home from './Home';
-import Map from './Map';
 import Secret from './Secret';
 import RailwaystationDetail from './RailwaystationDetail';
 import Login from './Login';
 import Signup from './Signup';
 import api from '../api';
-import logo from '../logo.svg';
 import './App.css';
 import Railwaystations from './Railwaystations';
 import {
@@ -21,7 +18,10 @@ import {
   UncontrolledDropdown,
   DropdownToggle,
   DropdownMenu,
-  DropdownItem
+  DropdownItem,
+  Row,
+  Col,
+  Container
 } from 'reactstrap';
 
 
@@ -61,38 +61,35 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-        </header>
-
         <div>
           <Navbar color="light" light expand="md">
-            <NavbarBrand href="/">Home</NavbarBrand>
+            <NavbarBrand href="/">Station Search</NavbarBrand>
             <NavbarToggler onClick={this.toggle} />
             <Collapse isOpen={this.state.isOpen} navbar>
               <Nav className="ml-auto" navbar>
                 <NavItem>
                   <NavLink href="https://www.google.de/maps">Google Maps</NavLink>
                 </NavItem>
-                <UncontrolledDropdown nav inNavbar>
-                  <DropdownToggle nav caret>
-                    Menu
-                </DropdownToggle>
-                  <DropdownMenu right>
-                    <DropdownItem>
-                      {!api.isLoggedIn() && <Link to="/signup">Signup</Link>}
-                    </DropdownItem>
-                    <DropdownItem>
-                      {!api.isLoggedIn() && <Link to="/login">Login</Link>}
-                    </DropdownItem>
-                    <DropdownItem>
-                      <Link to="/profile">Profile</Link>
-                    </DropdownItem>
-                    <DropdownItem divider />
-                    <DropdownItem>
-                      {api.isLoggedIn() && <Link to="/" onClick={(e) => this.handleLogoutClick(e)}>Logout</Link>}
-                    </DropdownItem>
-                  </DropdownMenu>
-                </UncontrolledDropdown>
+                <div class="nav-header">
+                  <NavItem>
+                    <NavLink href="">{api.isLoggedIn() && <Link to="/profile" onClick={(e) => this.handleLogoutClick(e)}>Profile</Link>}</NavLink>
+                  </NavItem>
+                  <NavItem>
+                    <NavLink href="">{!api.isLoggedIn() && <Link to="/signup">Signup</Link>}</NavLink>
+                  </NavItem>
+                  <span>or</span>
+                  <NavItem>
+                    <NavLink href="">{!api.isLoggedIn() && <Link to="/login">Login</Link>}</NavLink>
+                  </NavItem>
+
+                  <NavItem>
+                    <NavLink href="">{api.isLoggedIn() && <Link to="/" onClick={(e) => this.handleLogoutClick(e)}>Logout</Link>}</NavLink>
+                  </NavItem>
+
+
+
+                </div>
+
               </Nav>
             </Collapse>
           </Navbar>
