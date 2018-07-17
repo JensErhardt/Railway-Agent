@@ -8,6 +8,7 @@ const userSchema = new Schema({
   // salt: String, // Defined with passportLocalMongoose
   name: { type: String, required: [true, "A name is required"] },
   pictureUrl: { type: String },
+  _favorites: [{ type: Schema.Types.ObjectId, ref: 'Railwaystations' }],
 }, {
     timestamps: {
       createdAt: 'created_at',

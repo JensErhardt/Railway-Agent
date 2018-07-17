@@ -8,19 +8,26 @@ class Secret extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      secret: null
+      secret: null,
+      favorites: []
     }
   }
   componentDidMount(props) {
     api.getSecret()
       .then(data => {
-        this.setState({
-          secret: data.answerToLifeTheUniverseAndEverything
-        })
+        api.getFavorites()
+          .then(userData => {
+            this.setState({
+              secret: data.answerToLifeTheUniverseAndEverything,
+              favorites: userData
+            })
+          })
       })
   }
-  render() {                
+  render() {
+    console.log(this.state);
     
+
     return (
       <div className="Secret">
         <h2>Secret</h2>

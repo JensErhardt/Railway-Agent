@@ -7,7 +7,8 @@ class RailwaystationDetail extends Component {
     super(props)
     this.state = {
       stationDetail: null,
-      rentalObjects: null
+      rentalObjects: null,
+      userFavorites: [],
 
     }
   }
@@ -29,10 +30,23 @@ class RailwaystationDetail extends Component {
       .catch(err => console.log(err))
   }
 
+  handleFavoriteClick(e) {
+  console.log(this.props.match.params.id);
+  let id = this.props.match.params.id
+    api.postFavorite(id)
+    console.log("DEBUG handleFavoriteClick");
+    
+  }
+
   render() {
     
     return (
       this.state.stationDetail && <div className="railwaystationDetail">
+        <h2>Location Details</h2>
+
+        <button
+        onClick={(e) => this.handleFavoriteClick(e)}>Save Favorite</button>
+
         <div>
           <address>
             <strong>{this.state.stationDetail.railwaystationDetail.name}</strong> <br />

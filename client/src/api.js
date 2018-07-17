@@ -39,9 +39,16 @@ export default {
     .catch(errHandler)
   },
 
-  postCountries(data) {
+  getFavorites() {
     return service
-      .post('/countries', data)
+    .get('users/favorites/')
+    .then(res => res.data)
+    .catch(errHandler);
+  },
+
+  postFavorite(id) {
+    return service
+      .post('users/favorite/' + id)
       .then(res => res.data)
       .catch(errHandler);
   },

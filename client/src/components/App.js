@@ -63,7 +63,7 @@ class App extends Component {
       <div className="App">
         <div>
           <Navbar color="light" light expand="md">
-            <NavbarBrand href="/">Station Search</NavbarBrand>
+            <NavbarBrand href="/">Station Agent</NavbarBrand>
             <NavbarToggler onClick={this.toggle} />
             <Collapse isOpen={this.state.isOpen} navbar>
               <Nav className="ml-auto" navbar>

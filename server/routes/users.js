@@ -17,14 +17,6 @@ const storage = cloudinaryStorage({
 const parser = multer({ storage });
 
 
-// Route to get all users
-router.get('/', (req, res, next) => {
-  User.find()
-    .then(users => {
-      res.json(users)
-    })
-});
-
 // Route to add a picture on one user with Cloudinary
 // To perform the request throw Postman, you need
 // - Endpoint: POST http://localhost:3030/api/first-user/users/pictures
@@ -47,8 +39,31 @@ router.post('/first-user/pictures', parser.single('picture'), (req, res, next) =
     })
 });
 
-// Route to delete user profile
+// route to save favorite in user
+router.post("/favorite/:id", passport.authenticate("jwt", config.jwtSession), (req, res, next) => {
+  let userId = req.user.id;
+  let stationId = req.params.id;
+  console.log("DEBUG userId && stationId", userId, stationId);
+  User.findByIdAndUpdate(userId,
+  { $push: {_favorites: stationId  } }, {new: true} )
+  .then(
+    res.json()
+  )
+  .catch((error) => {
+    console.log(error);
+  })
+});
 
+// route to get all favorites of a user
+router.get("/favorites", passport.authenticate("jwt", config.jwtSession), (req, res, next) => {
+  let userId = req.user.id;
+  User.findById(userId).populate('favorite')
+  .then(userData => {
+    console.log(userData)
+  })
+
+});  
+// Route to delete user profile
 router.get("/delete-profile", (req, res, next) => {
   User.findByIdAndRemove(req.user.id)
     .then(res.render("/"))
