@@ -8,7 +8,7 @@ export class MapContainer extends Component {
   handleMarkerClick() {
     console.log("handleMarkerClick")
     this.setState({
-      isOpen:false
+      isOpen:true
     })
   }
 
@@ -79,7 +79,7 @@ export class MapContainer extends Component {
 
 		{
 			this.state.isOpen &&
-		 <InfoWindow onCloseClick={this.props.handleCloseCall}>
+		 <InfoWindow visible={true} >
 			 <h1>SUPER TEST</h1>
 		 </InfoWindow>
 	 	}
