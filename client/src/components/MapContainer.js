@@ -32,13 +32,14 @@ export class MapContainer extends Component {
   }
 
   render() {
-    const style = {
-      height: "80vh",
-      width: "60vw",
-    }
+    // const style = {
+    //   height: "80vh",
+    //   width: "60vw",
+    // }
     console.log("DEBUG MapContainerProps", this.props.stations)
 
     return (
+      <div>
       <Map
         google={this.props.google}
         zoom={5.5}
@@ -46,7 +47,7 @@ export class MapContainer extends Component {
           lat: 51.0377345,
           lng: 10.4124887
         }}
-        style={style}
+
       >
         {this.props.stations.map((marker) =>
           <Marker
@@ -68,6 +69,7 @@ export class MapContainer extends Component {
           <a href={"/stations/" + this.state.activeStation._id}>Show Details and live data</a>
         </InfoWindow>
       </Map>
+      </div>
     );
   }
 }

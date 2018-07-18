@@ -23,26 +23,14 @@ class Favorites extends React.Component {
 
   handleFavoriteDeleteClick(id) {
     console.log("handleFavoriteDeleteClick")
-    console.log(id);
     api.deleteFavorite(id)
     .then(_ => {
-      console.log("this.state",this.state)
       let newFavorites= [...this.state.favorites];
-        
       for ( let i = 0; i < this.state.favorites.length; i++) {
         if (newFavorites[i]._id === this.state.favorites[i]._id) {
-          console.log("MATCH")
           newFavorites.splice(i, 1)
-          console.log("SPLICED")
         }
       }
-
-      // newFavorites.forEach((e, i) => {
-      //   if (e._id === this.state.favorites._id){
-      //     newFavorites.splice(i, 1)
-      //   }
-      // })
-      console.log("newFavorites", newFavorites)
     this.setState({
       favorites: newFavorites,
       })
@@ -55,7 +43,7 @@ class Favorites extends React.Component {
        // .filter(favoriteStations => favorite.name.toUpperCase().includes(this.state.value.toUpperCase()))
     return (
       <div>
-        <h2>Favorites</h2>
+        <h2>Pinned Stations</h2>
         <ListGroup>
           {favoriteStations
             .map((f) =>

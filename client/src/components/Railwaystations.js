@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import api from '../api';
 import { Link, Route } from 'react-router-dom';
+import './Railwaystations.css'
+
 import SearchBar from './SearchBar';
 import MapContainer from './MapContainer';
 import { Button, Container, Row, Col, ListGroup, ListGroupItem } from 'reactstrap';
@@ -75,13 +77,33 @@ class Railwaystations extends Component {
 
     if (!isMap) {
       display =
-        <ListGroup>
-          {filteredStations
-            .map((e) =>
-              <ListGroupItem key={e._id}><Link to={"/stations/" + e._id}>{e.name}</Link></ListGroupItem>)}
-        </ListGroup>
+        <Row>
+          <ListGroup>
+            {filteredStations
+              .map((e) =>
+                <ListGroupItem key={e._id}><Link to={"/stations/" + e._id}>{e.name}</Link></ListGroupItem>)}
+          </ListGroup>
+          <Col>
+            {api.isLoggedIn() && <Favorites />}
+          </Col>
+        </Row>
+
     } else {
-      display = <MapContainer stations={filteredStations} />;
+      display =
+        <React.Fragment>
+          <React.Fragment>
+            <Row>
+              <Col>
+                <div id="map-container"><MapContainer stations={filteredStations} />;</div>
+              </Col>
+            </Row>
+          </React.Fragment>
+          <Row> 
+            <Col>
+              {api.isLoggedIn() && <Favorites />}
+            </Col>
+          </Row>
+        </React.Fragment>
 
     }
 
@@ -98,11 +120,8 @@ class Railwaystations extends Component {
             <Col>
               {display}
             </Col>
-            <Col>
-              
-              <Favorites />
-            </Col>
           </Row>
+
         </Container>
       </div>
     );

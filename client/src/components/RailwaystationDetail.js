@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Table } from 'reactstrap';
 import api from '../api';
+import { Button, Container, Row, Col, ListGroup, ListGroupItem } from 'reactstrap';
 
 class RailwaystationDetail extends Component {
   constructor(props) {
@@ -41,18 +42,20 @@ class RailwaystationDetail extends Component {
     
     return (
       this.state.stationDetail && <div className="railwaystationDetail">
-        <h2>Location Details</h2>
-
-        <button
-        onClick={(e) => this.handleFavoriteClick(e)}>Save Favorite</button>
-
-        <div>
+      
+      <Container>
+      
+          <Row>
+            <Col>
           <address>
             <strong>{this.state.stationDetail.railwaystationDetail.name}</strong> <br />
             {this.state.stationDetail.railwaystationDetail.address.street} <br />
             {this.state.stationDetail.railwaystationDetail.address.zipcode} {this.state.stationDetail.railwaystationDetail.address.city} <br />
+          <Button color="warning" onClick={(e) => this.handleFavoriteClick(e)}>Save Favorite</Button>
           </address>
-
+        </Col>
+  
+          </Row>
           <Table striped>
             <thead>
               <tr>
@@ -99,11 +102,10 @@ class RailwaystationDetail extends Component {
                 <td>Number of total spaces</td>
                 <td>{this.state.stationDetail.carparkDetail.numberParkingPlaces}</td>
               </tr>
-
             </tbody>
           </Table>
 
-        </div>
+      </Container>
       </div>
     );
   }

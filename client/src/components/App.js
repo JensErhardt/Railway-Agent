@@ -61,6 +61,13 @@ class App extends Component {
 
   
   render() {
+
+    let bindWord; 
+
+    if (!api.isLoggedIn()) {
+      bindWord = <span>or</span>;
+    }
+
     return (
       <div className="App">
         <div>
@@ -69,14 +76,10 @@ class App extends Component {
             <NavbarToggler onClick={this.toggle} />
             <Collapse isOpen={this.state.isOpen} navbar>
               <Nav className="ml-auto" navbar>
-                <NavItem>
-                  <NavLink href="https://www.google.de/maps">Google Maps</NavLink>
-                </NavItem>
-                <div class="nav-header">
+                <div className="nav-header">
                   <NavItem>
                     <NavLink>{!api.isLoggedIn() && <Link to="/signup">Signup</Link>}</NavLink>
-                  </NavItem>
-                  <span>or</span>
+                  </NavItem>                   {bindWord}
                   <NavItem>
                     <NavLink>{!api.isLoggedIn() && <Link to="/login">Login</Link>}</NavLink>
                   </NavItem>
