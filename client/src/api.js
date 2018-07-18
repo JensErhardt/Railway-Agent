@@ -46,6 +46,13 @@ export default {
     .catch(errHandler);
   },
 
+  deleteFavorite(id) {
+    return service
+    .delete('users/favorite/' + id)
+    .then(res => res.data)
+    .catch(errHandler);
+  },
+
   postFavorite(id) {
     return service
       .post('users/favorite/' + id)

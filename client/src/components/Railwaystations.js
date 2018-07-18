@@ -5,9 +5,9 @@ import RailwaystationDetail from './RailwaystationDetail';
 import SearchBar from './SearchBar';
 import MapContainer from './MapContainer';
 import { Button, Container, Row, Col, ListGroup, ListGroupItem } from 'reactstrap';
+import Favorites from './Favorites';
 
-
-
+window.api=api;
 
 class Railwaystations extends Component {
   constructor(props) {
@@ -70,6 +70,7 @@ class Railwaystations extends Component {
         <SearchBar onChange={this.handleChange} stations={this.state.railwaystations} />
         <Row>
         <Col>
+
         <ListGroup>
           {filteredStations
             .map((e) =>
@@ -77,7 +78,9 @@ class Railwaystations extends Component {
         </ListGroup>
         </Col>
         <Col>
+        <Favorites />
         <MapContainer stations={filteredStations} />
+
          </Col>
          </Row>
           </Container>

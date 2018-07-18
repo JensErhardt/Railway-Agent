@@ -8,6 +8,9 @@ const cloudinary = require('cloudinary');
 const cloudinaryStorage = require('multer-storage-cloudinary');
 const multer = require('multer');
 
+const Railwaystation = require('../models/railwaystations');
+
+
 const storage = cloudinaryStorage({
   cloudinary,
   folder: 'my-images',
@@ -45,24 +48,57 @@ router.post("/favorite/:id", passport.authenticate("jwt", config.jwtSession), (r
   let stationId = req.params.id;
   console.log("DEBUG userId && stationId", userId, stationId);
   User.findByIdAndUpdate(userId,
-  { $push: {_favorites: stationId  } }, {new: true} )
-  .then(
-    res.json()
-  )
-  .catch((error) => {
-    console.log(error);
-  })
+    { $push: { _favorites: stationId } }, { new: true })
+    .then(
+      res.json()
+    )
+    .catch((error) => {
+      console.log(error);
+    })
 });
 
 // route to get all favorites of a user
 router.get("/favorites", passport.authenticate("jwt", config.jwtSession), (req, res, next) => {
   let userId = req.user.id;
-  User.findById(userId).populate('favorite')
-  .then(userData => {
-    console.log(userData)
-  })
 
-});  
+  console.log("DEBUG getFavoritesRoute")
+  User.findById(userId).populate('favorite')
+    .then(userData => {
+      console.log(userData._favorites.length)
+      let userFavorites = []
+      for (let i = 0; i < userData._favorites.length; i++) {
+        Railwaystation.findById(userData._favorites[i])
+          .then(stationData => {
+            userFavorites.push(stationData);
+            if (userFavorites.length === userData._favorites.length) {
+              res.json(userFavorites)
+            }
+          })
+          .catch((error) => {
+            console.log(error)
+          })
+      }
+    })
+    .catch((error) => {
+      console.log(error)
+    })
+});
+
+// Route to delete one favorite
+router.delete("/favorite/:id", passport.authenticate("jwt", config.jwtSession), (req, res, next) => {
+  let favoriteId = req.params.id;
+  let userId = req.user.id
+
+  console.log("deleteFavorite Route")
+  console.log("DEBUG favoriteId userId", favoriteId, userId)
+  User.findByIdAndUpdate(userId, {$pull: {_favorites: favoriteId}}, {new: true})
+    .then(newUser => {
+      res.json(newUser);
+    })
+    .catch(err => next(err))
+ 
+ });
+
 // Route to delete user profile
 router.get("/delete-profile", (req, res, next) => {
   User.findByIdAndRemove(req.user.id)

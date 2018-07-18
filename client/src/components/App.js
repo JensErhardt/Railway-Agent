@@ -58,6 +58,8 @@ class App extends Component {
     api.logout()
   }
 
+
+  
   render() {
     return (
       <div className="App">
@@ -85,11 +87,7 @@ class App extends Component {
                   <NavItem>
                     <NavLink href="">{api.isLoggedIn() && <Link to="/" onClick={(e) => this.handleLogoutClick(e)}>Logout</Link>}</NavLink>
                   </NavItem>
-
-
-
                 </div>
-
               </Nav>
             </Collapse>
           </Navbar>
