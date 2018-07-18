@@ -17,6 +17,7 @@ router.get('/', (req, res, next) => {
 // Route to call the API and fetch all carparks in the databank
 router.get('/call', (req, res, next) => {
   console.log("carparks api call")
+  let nbOfCarparkSaved = 0
   axios.defaults.headers.common['Authorization'] = 'Bearer bf8e861cad4565da30955ff66c53f8c1';
   axios.get('http://api.deutschebahn.com/bahnpark/v1/spaces?limit=300')
     .then(carparkData => {
@@ -37,6 +38,9 @@ router.get('/call', (req, res, next) => {
             if (err) {
               console.log(err);
             }
+            else {
+              nbOfCarparkSaved++
+            }
           })
         }
       }
@@ -54,6 +58,10 @@ router.get('/call', (req, res, next) => {
       console.log("findOneAndUpdate finished");
     })
     .catch(err => next(err))
+  // Dirty code to send a json
+  setTimeout(() => {
+    res.json({success: "maybe", nbOfCarparkSaved})
+  }, 10000)
 })
 
 router.get('/prognoses/:id', (req, res, next) => {
