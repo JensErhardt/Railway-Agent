@@ -74,18 +74,14 @@ class App extends Component {
                 </NavItem>
                 <div class="nav-header">
                   <NavItem>
-                    <NavLink href="">{api.isLoggedIn() && <Link to="/profile" onClick={(e) => this.handleLogoutClick(e)}>Profile</Link>}</NavLink>
-                  </NavItem>
-                  <NavItem>
-                    <NavLink href="">{!api.isLoggedIn() && <Link to="/signup">Signup</Link>}</NavLink>
+                    <NavLink>{!api.isLoggedIn() && <Link to="/signup">Signup</Link>}</NavLink>
                   </NavItem>
                   <span>or</span>
                   <NavItem>
-                    <NavLink href="">{!api.isLoggedIn() && <Link to="/login">Login</Link>}</NavLink>
+                    <NavLink>{!api.isLoggedIn() && <Link to="/login">Login</Link>}</NavLink>
                   </NavItem>
-
                   <NavItem>
-                    <NavLink href="">{api.isLoggedIn() && <Link to="/" onClick={(e) => this.handleLogoutClick(e)}>Logout</Link>}</NavLink>
+                    <NavLink>{api.isLoggedIn() && <Link to="/" onClick={(e) => this.handleLogoutClick(e)}>Logout</Link>}</NavLink>
                   </NavItem>
                 </div>
               </Nav>
@@ -97,7 +93,6 @@ class App extends Component {
           <Route path="/" exact component={Railwaystations} />
           <Route path="/signup" component={Signup} />
           <Route path="/login" component={Login} />
-          <Route path="/profile" component={Secret} />
           <Route path="/stations/:id" component={RailwaystationDetail} />
           <Route render={() => <h2>404</h2>} />
         </Switch>

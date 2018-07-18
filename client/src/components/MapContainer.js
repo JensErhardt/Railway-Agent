@@ -1,19 +1,25 @@
 import React, { Component } from 'react';
 import { Map, InfoWindow, Marker, GoogleApiWrapper } from 'google-maps-react';
-
+import { Link } from 'react-router-dom'
 export class MapContainer extends Component {
   state = {
-    isOpen: false
+    isOpen: false,
+    activeMarker: null,
+    activeStation: {}
   }
-  handleMarkerClick() {
-    console.log("handleMarkerClick")
+  handleMarkerClick(props, marker, e) {
+    console.log("handleMarkerClick", props)
     this.setState({
-      isOpen:true
+      isOpen: true,
+      activeMarker: marker,
+      activeStation: {
+        name: props.name,
+        _id: props._id
+      }
     })
   }
 
   handleToggleOpen = () => {
-
     this.setState({
       isOpen: true
     });
@@ -27,10 +33,10 @@ export class MapContainer extends Component {
 
   render() {
     const style = {
-      height: "400px",
-      // width: "40wv",
-     
+      height: "80vh",
+      width: "60vw",
     }
+    console.log("DEBUG MapContainerProps", this.props.stations)
 
     return (
       <Map
@@ -45,52 +51,23 @@ export class MapContainer extends Component {
         {this.props.stations.map((marker) =>
           <Marker
             onClick={this.handleMarkerClick.bind(this)}
-            position={{ 
-              lng: marker.geographicCoordinates[0], 
-              lat: marker.geographicCoordinates[1] }} 
+            position={{
+              lng: marker.geographicCoordinates[0],
+              lat: marker.geographicCoordinates[1]
+            }}
             title={marker.name}
             name={marker.name}
             key={marker.name}
-            
-          >
-            {false && <InfoWindow onCloseClick={this.handleInfoWindowCloseClick}>
-            <div>
-              <h1>TESTTESTTEST</h1>
-            </div>
-            </InfoWindow>}
-          </Marker>
+            _id={marker._id}
+          />
         )}
-        {/* <Marker
-
-          position={{ lat: , lng: 150.644 }}
-          onClick={() => {}}
-        >
-          <InfoWindow onCloseClick={() => {}}>
-            <div>Test</div>
-          </InfoWindow>
-        </Marker> */}
-
-
-		<Marker
-			key={1}
-			position={{ lat: -34.397, lng: 150.644}}
-			label={"!!!TEST MARKER!!!"}
-			onClick={() => this.handleToggleOpen()}
-		>
-
-		{
-			this.state.isOpen &&
-		 <InfoWindow  >
-			 <h1>SUPER TEST</h1>
-		 </InfoWindow>
-	 	}
-
-
-		</Marker>
-
-
+        <InfoWindow marker={this.state.activeMarker} visible>
+          <br/><p>
+            <strong>{this.state.activeStation.name}</strong>
+          </p>
+          <a href={"/stations/" + this.state.activeStation._id}>Show Details and live data</a>
+        </InfoWindow>
       </Map>
-
     );
   }
 }

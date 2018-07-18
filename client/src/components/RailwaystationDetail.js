@@ -9,7 +9,6 @@ class RailwaystationDetail extends Component {
       stationDetail: null,
       rentalObjects: null,
       userFavorites: [],
-
     }
   }
   componentDidMount() {
