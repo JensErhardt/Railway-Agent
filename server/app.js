@@ -90,9 +90,9 @@ app.use((err, req, res, next) => {
   err.status = err.status || 500;
   console.error("----- An error happened -----");
   console.error(err);
-  if (process.env.NODE_ENV === 'production')
-    res.json(err); // A limited amount of information sent in production
-  else
+  // if (process.env.NODE_ENV === 'production')
+    // res.json(err); // A limited amount of information sent in production
+  // else
     res.json(JSON.parse(JSON.stringify(err, Object.getOwnPropertyNames(err))));
 });
 
