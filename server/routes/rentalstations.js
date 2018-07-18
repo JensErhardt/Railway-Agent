@@ -31,6 +31,10 @@ router.get('/:id', (req, res, next) => {
       axios.defaults.headers.common['Authorization'] = 'Bearer bf8e861cad4565da30955ff66c53f8c1';
       // https://api.deutschebahn.com/flinkster-api-ng/v1/bookingproposals?lat=${longitude}&lon=${latitude}&radius=500&offset=5&limit=100&providernetwork=1&begin=2018-07-13T20%3A07%3A00%2B02%3A00&end=2018-07-16T23%3A10%3A00%2B02%3A00
 
+
+      console.log("DEBUG 1", `https://api.deutschebahn.com/flinkster-api-ng/v1/bookingproposals?lat=${longitude}&lon=${latitude}&radius=500&offset=5&limit=50&providernetwork=1&begin=${yyyy}-${mm}-${dd}T${hhStart}%3A07%3A00%2B02%3A00&end=${yyyy}-${mm}-${dd}T${hhEnd}%3A10%3A00%2B02%3A00`);
+      console.log("DEBUG 2", `https://api.deutschebahn.com/flinkster-api-ng/v1/bookingproposals?lat=${longitude}&lon=${latitude}&radius=500&offset=5&limit=50&providernetwork=2&begin=${yyyy}-${mm}-${dd}T${hhStart}%3A07%3A00%2B02%3A00&end=${yyyy}-${mm}-${dd}T${hhEnd}%3A10%3A00%2B02%3A00`);
+      
       axios.get(`https://api.deutschebahn.com/flinkster-api-ng/v1/bookingproposals?lat=${longitude}&lon=${latitude}&radius=500&offset=5&limit=50&providernetwork=1&begin=${yyyy}-${mm}-${dd}T${hhStart}%3A07%3A00%2B02%3A00&end=${yyyy}-${mm}-${dd}T${hhEnd}%3A10%3A00%2B02%3A00`)
         .then(carSharingData => {
           console.log("CARS", carSharingData.data.items.length)
