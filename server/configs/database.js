@@ -5,7 +5,7 @@ const dbName = 'project-three';
 const mongoUri = process.env.MONGODB_URI || `mongodb://localhost/${dbName}`;
 
 // connect to the database
-mongoose.connect(mongoUri);
+mongoose.connect("mongodb://localhost/project-three");
 
 const db = mongoose.connection;
 
