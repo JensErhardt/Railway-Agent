@@ -8,6 +8,7 @@ import MapContainer from './MapContainer';
 import { Button, Container, Row, Col, ListGroup, ListGroupItem } from 'reactstrap';
 import Favorites from './Favorites';
 import RailwaystationDetail from './RailwaystationDetail';
+import './Railwaystations.css'
 
 
 
@@ -80,16 +81,34 @@ class Railwaystations extends Component {
 
     if (!isMap) {
       display =
-        <Row>
-          <ListGroup>
-            {filteredStations
-              .map((e) =>
-                <ListGroupItem key={e._id}><Link to={"/stations/" + e._id}>{e.name}</Link></ListGroupItem>)}
-          </ListGroup>
-          <Col>
-            {api.isLoggedIn() && <Favorites />}
-          </Col>
-        </Row>
+        <React.Fragment>
+          <Row>
+            <Col>
+              <Route path="/stations/:id" component={RailwaystationDetail} />
+            </Col>
+          </Row>
+          <React.Fragment>
+            <Row>
+
+            {/* {<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 text-center"> */}
+              <ul class="list-group-horizontal" className="list-group-horizontal">
+                {filteredStations
+                  .map((e) =>
+                    <li class="list-group-item" key={e._id}><Link to={"/stations/" + e._id}>{e.name}</Link></li>)}
+              </ul>
+            {/* </div> } */}
+
+            </Row>
+          </React.Fragment>
+
+          <Row>
+            <Col>
+              {api.isLoggedIn() && <Favorites />}
+            </Col>
+          </Row>
+        </React.Fragment>
+
+
 
     } else {
       display =
@@ -99,9 +118,12 @@ class Railwaystations extends Component {
               <Col>
                 <div id="map-container"><MapContainer stations={filteredStations} />;</div>
               </Col>
+              <Col>
+                <Route path="/stations/:id" component={RailwaystationDetail} />
+              </Col>
             </Row>
           </React.Fragment>
-          <Row> 
+          <Row>
             <Col>
               {api.isLoggedIn() && <Favorites />}
             </Col>
@@ -125,12 +147,12 @@ class Railwaystations extends Component {
             <Col>
               {display}
             </Col>
-            <Col>
+            {/* <Col>
               <Route path="/stations/:id" component={RailwaystationDetail} />
-            </Col>
+            </Col> */}
           </Row>
 
-        
+
         </Container>
       </div>
     );

@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import api from '../api';
-import { Button, Container, Row, Col, ListGroup, ListGroupItem } from 'reactstrap';
+import { Button, Container, Row, Col, ListGroup, ListGroupItem, InputGroupAddon } from 'reactstrap';
 import { Link, Route } from 'react-router-dom';
+import './Favorites.css';
 
 class Favorites extends React.Component {
   
@@ -44,16 +45,20 @@ class Favorites extends React.Component {
     return (
       <div>
         <h2>Pinned Stations</h2>
-        <ListGroup>
+        <ul class="list-group-horizontal" id="favorite-list">
           {favoriteStations
             .map((f) =>
-              <ListGroupItem 
+              <li 
+              class="list-group-item"
+              id="favorite-item"
               favoriteId={f._id}>
               <Link to={"/stations/" + f._id}>{f.name}</Link>
               <button
               onClick={_ => this.handleFavoriteDeleteClick(f._id)}>Delete</button>
-              </ListGroupItem>)}
-        </ListGroup>
+              </li>)}
+        </ul>
+
+
 
       </div>  
     )
