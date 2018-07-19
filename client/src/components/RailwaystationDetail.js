@@ -30,6 +30,11 @@ class RailwaystationDetail extends Component {
       .catch(err => console.log(err))
   }
 
+  componentDidUpdate(prevProps) {
+    if (prevProps.match.params.id !== this.props.match.params.id) 
+      this.componentDidMount()
+  }
+
   handleFavoriteClick(e) {
   console.log(this.props.match.params.id);
   let id = this.props.match.params.id

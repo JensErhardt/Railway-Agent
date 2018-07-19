@@ -7,6 +7,9 @@ import SearchBar from './SearchBar';
 import MapContainer from './MapContainer';
 import { Button, Container, Row, Col, ListGroup, ListGroupItem } from 'reactstrap';
 import Favorites from './Favorites';
+import RailwaystationDetail from './RailwaystationDetail';
+
+
 
 
 class Railwaystations extends Component {
@@ -107,6 +110,8 @@ class Railwaystations extends Component {
 
     }
 
+
+
     console.log("DEBUG RailwaystationsState", this.state)
     return (
       <div className="Railwaystations">
@@ -120,8 +125,12 @@ class Railwaystations extends Component {
             <Col>
               {display}
             </Col>
+            <Col>
+              <Route path="/stations/:id" component={RailwaystationDetail} />
+            </Col>
           </Row>
 
+        
         </Container>
       </div>
     );

@@ -101,9 +101,9 @@ class App extends Component {
 
         <Switch>
           <Route path="/" exact component={Railwaystations} />
+          <Route path="/stations" component={Railwaystations} />
           <Route path="/signup" component={Signup} />
           <Route path="/login" component={Login} />
-          <Route path="/stations/:id" component={RailwaystationDetail} />
           <Route render={() => <h2>404</h2>} />
         </Switch>
       </div>
