@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.0-14",
+    "@fortawesome/free-solid-svg-icons": "^5.1.0-11",
+    "@fortawesome/react-fontawesome": "0.1.0-11",
     "axios": "^0.18.0",
     "bootstrap": "^4.1.2",
     "downshift": "^2.0.14",
@@ -10,7 +13,7 @@
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-router-dom": "^4.2.2",
-    "react-scripts": "1.1.1",
+    "react-scripts": "^1.1.4",
     "react-search-input": "^0.11.3",
     "reactstrap": "^6.3.0"
   },

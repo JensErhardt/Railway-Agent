@@ -1,12 +1,18 @@
 .App {
   text-align: center;
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 16px;
 }
 
 .nav-header{
   display: flex;
   align-items: center;
-}
 
+}
+.nav-logo{
+  width: 40px;
+  margin-left: 10px;
+}
 
 
 

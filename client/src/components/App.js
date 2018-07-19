@@ -6,6 +6,7 @@ import Login from './Login';
 import Signup from './Signup';
 import api from '../api';
 import './App.css';
+// import '../img/agent-logo.svg';
 import Railwaystations from './Railwaystations';
 import {
   Collapse,
@@ -23,7 +24,6 @@ import {
   Col,
   Container
 } from 'reactstrap';
-
 
 class App extends Component {
   constructor(props) {
@@ -59,10 +59,10 @@ class App extends Component {
   }
 
 
-  
+
   render() {
 
-    let bindWord; 
+    let bindWord;
 
     if (!api.isLoggedIn()) {
       bindWord = <span>or</span>;
@@ -71,8 +71,15 @@ class App extends Component {
     return (
       <div className="App">
         <div>
-          <Navbar color="light" light expand="md">
-            <NavbarBrand href="/">Station Agent</NavbarBrand>
+          <Navbar color="white" light expand="md">
+
+            <span class="navbar-brand">
+              <NavbarBrand href="/">Station Agent
+              <img class="nav-logo" src="/images/agent2-logo.svg" alt="" />
+              </NavbarBrand>
+
+              
+            </span>
             <NavbarToggler onClick={this.toggle} />
             <Collapse isOpen={this.state.isOpen} navbar>
               <Nav className="ml-auto" navbar>
