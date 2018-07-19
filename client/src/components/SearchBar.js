@@ -28,6 +28,7 @@ class Searchbar extends Component {
 
 
     return (
+      <div className="search-bar">
       <Container>
       <InputGroup>
         {/* <FontAwesomeIcon icon={"map-marker-alt"} /> */}
@@ -59,7 +60,7 @@ class Searchbar extends Component {
     
 
       </Container>
-
+      </div>
     )
   }
 }

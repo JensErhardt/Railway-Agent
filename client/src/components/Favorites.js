@@ -3,6 +3,11 @@ import api from '../api';
 import { Button, Container, Row, Col, ListGroup, ListGroupItem, InputGroupAddon } from 'reactstrap';
 import { Link, Route } from 'react-router-dom';
 import './Favorites.css';
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faTrashAlt } from '@fortawesome/free-solid-svg-icons'
+
+library.add(faTrashAlt)
 
 class Favorites extends React.Component {
   
@@ -43,7 +48,8 @@ class Favorites extends React.Component {
        let favoriteStations = this.state.favorites
        // .filter(favoriteStations => favorite.name.toUpperCase().includes(this.state.value.toUpperCase()))
     return (
-      <div>
+      <div class="fav-container">
+
         <h2>Pinned Stations</h2>
         <ul class="list-group-horizontal" id="favorite-list">
           {favoriteStations
@@ -52,14 +58,12 @@ class Favorites extends React.Component {
               class="list-group-item"
               id="favorite-item"
               favoriteId={f._id}>
-              <Link to={"/stations/" + f._id}>{f.name}</Link>
-              <button
-              onClick={_ => this.handleFavoriteDeleteClick(f._id)}>Delete</button>
+              <Link to={"/stations/" + f._id}>{f.name} </Link>
+              <FontAwesomeIcon 
+              onClick={_ => this.handleFavoriteDeleteClick(f._id)}
+              icon="trash-alt" />
               </li>)}
         </ul>
-
-
-
       </div>  
     )
   }

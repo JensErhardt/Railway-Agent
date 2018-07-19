@@ -15,3 +15,8 @@ border-bottom-left-radius:4px;
 border-top-right-radius:4px;
 border-bottom-left-radius:0;
 }
+.fav-container{
+  margin-top: 10px;
+  border-top: 1px solid #ebebe0;
+  /* background-color: red; */
+}

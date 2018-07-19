@@ -71,7 +71,7 @@ class App extends Component {
     return (
       <div className="App">
         <div>
-          <Navbar color="white" light expand="md">
+          <Navbar class="navbar" color="white" light expand="md">
 
             <span class="navbar-brand">
               <NavbarBrand href="/">Station Agent

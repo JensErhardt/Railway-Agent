@@ -97,7 +97,6 @@ class Railwaystations extends Component {
                     <li class="list-group-item" key={e._id}><Link to={"/stations/" + e._id}>{e.name}</Link></li>)}
               </ul>
             {/* </div> } */}
-
             </Row>
           </React.Fragment>
 

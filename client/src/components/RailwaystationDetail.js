@@ -3,22 +3,25 @@ import { Table } from 'reactstrap';
 import api from '../api';
 import {
   Button, Container, Row, Col, ListGroup, ListGroupItem, Card, CardImg, CardTitle, CardText, CardColumns,
-  CardSubtitle, CardBody, Jumbotron
+  CardSubtitle, CardBody, Jumbotron, Popover, PopoverHeader, PopoverBody
 } from 'reactstrap';
 import './RailwaystationDetail.css';
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faParking, faWheelchair, faSync } from '@fortawesome/free-solid-svg-icons'
+import { faParking, faWheelchair, faSync, faStar } from '@fortawesome/free-solid-svg-icons'
 
-library.add(faParking, faWheelchair, faSync, faParking)
+library.add(faParking, faWheelchair, faSync, faParking, faStar)
 
 class RailwaystationDetail extends Component {
   constructor(props) {
     super(props)
+    this.toggle = this.toggle.bind(this);
+
     this.state = {
       stationDetail: null,
       rentalObjects: null,
       userFavorites: [],
+      popoverOpen: false
     }
   }
   componentDidMount() {
@@ -44,6 +47,12 @@ class RailwaystationDetail extends Component {
       this.componentDidMount()
   }
 
+  toggle() {
+    this.setState({
+      popoverOpen: !this.state.popoverOpen
+    });
+  }
+
   handleFavoriteClick(e) {
     console.log(this.props.match.params.id);
     let id = this.props.match.params.id
@@ -53,18 +62,39 @@ class RailwaystationDetail extends Component {
   }
 
   render() {
+    let favoriteButton;
+
+    if (!api.isLoggedIn()) {
+
+      favoriteButton =
+        <div>
+          <Button id="Popover1" onClick={this.toggle}>
+            <FontAwesomeIcon icon="star" />
+          </Button>
+          <Popover placement="bottom" isOpen={this.state.popoverOpen} target="Popover1" toggle={this.toggle}>
+            <PopoverHeader>Favorites</PopoverHeader>
+            <PopoverBody>Sign up and log in to pin a station to your favorites.</PopoverBody>
+          </Popover>
+        </div>
+    } else {
+
+      favoriteButton =
+        <Button id="btn-favorite" color="warning" onClick={(e) => this.handleFavoriteClick(e)}><FontAwesomeIcon icon="star" /></Button>
+
+    }
 
     return (
-      this.state.stationDetail && <div className="railwaystationDetail">
+      this.state.stationDetail && <div className="station-detail">
+
         <Container>
           <CardColumns>
-          <Card id="live-card" body inverse color="success">
+            <Card id="live-card" body inverse color="success">
               <CardTitle><strong>Live Data</strong> <FontAwesomeIcon icon="sync" /> </CardTitle>
-              <CardSubtitle><u>Flinkster & CallABike</u></CardSubtitle> 
-              <CardText>Bikes: {this.state.rentalObjects.bikesAvailable} <br/>
-                Cars: {this.state.rentalObjects.carsAvailable}</CardText>   
+              <CardSubtitle><u>Flinkster & CallABike</u></CardSubtitle>
+              <CardText>Bikes: {this.state.rentalObjects.bikesAvailable} <br />
+                Cars: {this.state.rentalObjects.carsAvailable}</CardText>
               <CardSubtitle><u>Carpark</u></CardSubtitle>
-              <CardText><i class="fas fa-parking"></i>Free Spaces: <br/> {this.state.prognosesData.prognosesText}</CardText>
+              <CardText><i class="fas fa-parking"></i>Free Spaces: <br /> {this.state.prognosesData.prognosesText}</CardText>
             </Card>
             <Card>
               <CardBody id="station-card">
@@ -72,17 +102,18 @@ class RailwaystationDetail extends Component {
                 <CardSubtitle>{this.state.stationDetail.railwaystationDetail.address.street} <br />
                   {this.state.stationDetail.railwaystationDetail.address.zipcode} {this.state.stationDetail.railwaystationDetail.address.city} <br /></CardSubtitle>
                 <CardText></CardText>
-                <Button color="warning" onClick={(e) => this.handleFavoriteClick(e)}>Save Favorite</Button>
+                {favoriteButton}
+
               </CardBody>
             </Card>
             <Card>
               <CardBody id="carpark-card">
-              {/* <CardImg top width="1000" src="/images/carpark-symbol.png" alt="carpark-img" /> */}
+                {/* <CardImg top width="1000" src="/images/carpark-symbol.png" alt="carpark-img" /> */}
                 <CardTitle><FontAwesomeIcon icon="parking" />   <strong><a target="_blank" href={this.state.stationDetail.carparkDetail.carparkUrl}>{this.state.stationDetail.carparkDetail.name}</a></strong> </CardTitle>
-                <CardSubtitle><strong>Entrance:</strong> <br/>{this.state.stationDetail.carparkDetail.address.street} {this.state.stationDetail.carparkDetail.address.postalCode} {this.state.stationDetail.railwaystationDetail.address.city} <br />
+                <CardSubtitle><strong>Entrance:</strong> <br />{this.state.stationDetail.carparkDetail.address.street} {this.state.stationDetail.carparkDetail.address.postalCode} {this.state.stationDetail.railwaystationDetail.address.city} <br />
                 </CardSubtitle>
                 <CardText>
-                <FontAwesomeIcon icon="wheelchair" /> Places: {this.state.stationDetail.carparkDetail.numberHandicapedPlaces} <br />
+                  <FontAwesomeIcon icon="wheelchair" /> Places: {this.state.stationDetail.carparkDetail.numberHandicapedPlaces} <br />
                   Total spaces: {this.state.stationDetail.carparkDetail.numberParkingPlaces}
                 </CardText>
               </CardBody>
