@@ -88,7 +88,7 @@ class RailwaystationDetail extends Component {
 
         <Container>
           <CardColumns>
-            <Card id="live-card" body inverse color="success">
+            <Card class="detail-card" id="live-card" body inverse color="success">
               <CardTitle><strong>Live Data</strong> <FontAwesomeIcon icon="sync" /> </CardTitle>
               <CardSubtitle><u>Flinkster & CallABike</u></CardSubtitle>
               <CardText>Bikes: {this.state.rentalObjects.bikesAvailable} <br />
@@ -96,7 +96,7 @@ class RailwaystationDetail extends Component {
               <CardSubtitle><u>Carpark</u></CardSubtitle>
               <CardText><i class="fas fa-parking"></i>Free Spaces: <br /> {this.state.prognosesData.prognosesText}</CardText>
             </Card>
-            <Card>
+            <Card class="detail-card">
               <CardBody id="station-card">
                 <CardTitle><strong><u>{this.state.stationDetail.railwaystationDetail.name}</u></strong> </CardTitle>
                 <CardSubtitle>{this.state.stationDetail.railwaystationDetail.address.street} <br />
@@ -106,7 +106,7 @@ class RailwaystationDetail extends Component {
 
               </CardBody>
             </Card>
-            <Card>
+            <Card class="detail-card">
               <CardBody id="carpark-card">
                 {/* <CardImg top width="1000" src="/images/carpark-symbol.png" alt="carpark-img" /> */}
                 <CardTitle><FontAwesomeIcon icon="parking" />   <strong><a target="_blank" href={this.state.stationDetail.carparkDetail.carparkUrl}>{this.state.stationDetail.carparkDetail.name}</a></strong> </CardTitle>

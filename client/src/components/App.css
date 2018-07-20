@@ -1,9 +1,14 @@
-.App {
-  text-align: center;
-  font-family: Helvetica, Arial, sans-serif;
-  font-size: 16px;
+
+@font-face {    
+  font-family: "Roboto";
+  src: url("/client/public/fonts/Roboto-Regular.ttf") format( "ttf" );
 }
 
+
+.App {
+  text-align: center;
+  font-size: 16px;
+}
 .nav-header{
   display: flex;
   align-items: center;
@@ -12,13 +17,11 @@
 .nav-logo{
   width: 40px;
   margin-left: 10px;
-  
 }
-
 .navbar {
   border-bottom: 1px solid 	 #ebebe0;
-
 }
+
 
 
 

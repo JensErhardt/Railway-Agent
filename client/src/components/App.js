@@ -1,12 +1,9 @@
 import React, { Component } from 'react';
 import { Route, Link, Switch } from 'react-router-dom';
-import Secret from './Secret';
-import RailwaystationDetail from './RailwaystationDetail';
 import Login from './Login';
 import Signup from './Signup';
 import api from '../api';
 import './App.css';
-// import '../img/agent-logo.svg';
 import Railwaystations from './Railwaystations';
 import {
   Collapse,
@@ -74,7 +71,7 @@ class App extends Component {
           <Navbar class="navbar" color="white" light expand="md">
 
             <span class="navbar-brand">
-              <NavbarBrand href="/">Station Agent
+              <NavbarBrand href="/">Railway Agent
               <img class="nav-logo" src="/images/agent2-logo.svg" alt="" />
               </NavbarBrand>
 

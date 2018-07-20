@@ -78,6 +78,8 @@ class Railwaystations extends Component {
 
     let isMap = this.state.showMap;
     let display;
+    console.log(this.props.match.params)
+
 
     if (!isMap) {
       display =
@@ -90,13 +92,12 @@ class Railwaystations extends Component {
           <React.Fragment>
             <Row>
 
-            {/* {<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 text-center"> */}
               <ul class="list-group-horizontal" className="list-group-horizontal">
                 {filteredStations
                   .map((e) =>
                     <li class="list-group-item" key={e._id}><Link to={"/stations/" + e._id}>{e.name}</Link></li>)}
               </ul>
-            {/* </div> } */}
+
             </Row>
           </React.Fragment>
 
@@ -107,10 +108,10 @@ class Railwaystations extends Component {
           </Row>
         </React.Fragment>
 
-
-
     } else {
+
       display =
+
         <React.Fragment>
           <React.Fragment>
             <Row>
@@ -131,9 +132,6 @@ class Railwaystations extends Component {
 
     }
 
-
-
-    console.log("DEBUG RailwaystationsState", this.state)
     return (
       <div className="Railwaystations">
         <Container>

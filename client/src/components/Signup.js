@@ -53,14 +53,14 @@ class Signup extends Component {
           />
           <FormText>Please enter email</FormText>
 
-          <Input
+          {/* <Input
             type="text"
             placeholder="johndoe"
             value={this.state.name}
             onChange={(e) => { this.handleInputChange("name", e) }}
             bSize="lg"
           />
-          <FormText>Please enter username</FormText>
+          <FormText>Please enter username</FormText> */}
 
           <Input
             type="password"
