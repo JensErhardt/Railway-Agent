@@ -11,6 +11,6 @@ Railway agent is my final project during  the fullstack web dev bootcamp, and is
 
 <h2> Technologies Used </h2>
 
-Railway Agent is a single page application using  React, Express, MongoDB, Passport, HTML 5 and CSS 3.
+Railway Agent is a single page application using  React, Express, MongoDB, Passport, HTML 5 and CSS 3 and Bootstrap.
 
 <a href="https://railway-agent.herokuapp.com/">Railway Agent</a>
