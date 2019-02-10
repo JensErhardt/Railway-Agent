@@ -1,7 +1,6 @@
-import React, { Component } from 'react';
+import React from 'react';
 import api from '../api';
-import { Button, Container, Row, Col, ListGroup, ListGroupItem, InputGroupAddon } from 'reactstrap';
-import { Link, Route } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import './Favorites.css';
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -28,7 +27,6 @@ class Favorites extends React.Component {
   }
 
   handleFavoriteDeleteClick(id) {
-    console.log("handleFavoriteDeleteClick")
     api.deleteFavorite(id)
     .then(_ => {
       let newFavorites= [...this.state.favorites];
@@ -40,7 +38,7 @@ class Favorites extends React.Component {
     this.setState({
       favorites: newFavorites,
       })
-     } )
+     })
   }
   
   render() {

@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
 import api from '../api';
 import { Link, Route } from 'react-router-dom';
-import './Railwaystations.css'
 
 import SearchBar from './SearchBar';
 import MapContainer from './MapContainer';
 import { Container, Row, Col } from 'reactstrap';
 import Favorites from './Favorites';
-import RailwaystationDetail from './RailwaystationDetail';
+import Station from './station/Station';
 
+import './Dashboard.css'
 
-class Railwaystations extends Component {
+class Dashboard extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -76,7 +76,7 @@ class Railwaystations extends Component {
         <React.Fragment>
           <Row>
             <Col>
-              <Route path="/stations/:id" component={RailwaystationDetail} />
+              <Route path="/stations/:id" component={Station} />
             </Col>
           </Row>
           <React.Fragment>
@@ -104,7 +104,7 @@ class Railwaystations extends Component {
                 <div id="map-container"><MapContainer stations={filteredStations} />;</div>
               </Col>
               <Col>
-                <Route path="/stations/:id" component={RailwaystationDetail} />
+                <Route path="/stations/:id" component={Station} />
               </Col>
             </Row>
           </React.Fragment>
@@ -128,9 +128,6 @@ class Railwaystations extends Component {
             <Col>
               {display}
             </Col>
-            {/* <Col>
-              <Route path="/stations/:id" component={RailwaystationDetail} />
-            </Col> */}
           </Row>
         </Container>
       </div>
@@ -138,4 +135,4 @@ class Railwaystations extends Component {
   }
 }
 
-export default Railwaystations;
+export default Dashboard;

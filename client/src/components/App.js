@@ -4,7 +4,7 @@ import Login from './Login';
 import Signup from './Signup';
 import api from '../api';
 import './App.css';
-import Railwaystations from './Railwaystations';
+import Dashboard from './Dashboard';
 import {
   Collapse,
   Navbar,
@@ -14,6 +14,7 @@ import {
   NavItem,
   NavLink,
 } from 'reactstrap';
+
 
 class App extends Component {
   constructor(props) {
@@ -84,8 +85,8 @@ class App extends Component {
         </div>
 
         <Switch>
-          <Route path="/" exact component={Railwaystations} />
-          <Route path="/stations" component={Railwaystations} />
+          <Route path="/" exact component={Dashboard} />
+          <Route path="/stations" component={Dashboard} />
           <Route path="/signup" component={Signup} />
           <Route path="/login" component={Login} />
           <Route render={() => <h2>404</h2>} />
