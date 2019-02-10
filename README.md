@@ -9,6 +9,7 @@ Railway Agent is my final project during  the fullstack web dev bootcamp at Iron
 <li>Live data for available Flinkster & CallABack rental objects (cars / bikes) within a radius of 500 meters around a trainstation</li>
 <li>Occupancy prognoses and occupancy live data of attached carparks of DB BahnPark</li>
 <li>Favorite list for pinned stations</li>
+</ul>
 
 <h2> Technologies Used </h2>
 
