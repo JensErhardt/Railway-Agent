@@ -4,21 +4,54 @@ import { faSync, faParking } from '@fortawesome/free-solid-svg-icons'
 
 import React from 'react';
 
-import { Card, CardTitle, CardText, CardSubtitle } from 'reactstrap';
+import api from "../../api";
 
 library.add(faSync, faParking)
 
-class Live extends React.PureComponent {
+class Live extends React.Component {
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      bikes: 0,
+      cars: 0,
+      prognoses: "",
+    }
+  }
+
+  getLiveData(id) {
+    Promise.all([
+      api.getRentalObjects(id),
+      api.getCarparkPrognoses(id),
+    ])
+      .then(data => {
+        this.setState({
+          bikes: data[0].bikesAvailable,
+          cars: data[0].carsAvailable,
+          prognoses: data[1].prognosesText,
+        });
+      })
+      .catch(err => console.log(err));
+  }
+
+  componentDidMount() {
+    this.getLiveData(this.props.id);
+  }
+
   render() {
+    const state = this.state;
+
     return (
-      <Card class="detail-card" id="live-card" body inverse color="success">
-        <CardTitle><strong>Live Data</strong> <FontAwesomeIcon icon="sync" /> </CardTitle>
-        <CardSubtitle><u>Flinkster & CallABike</u></CardSubtitle>
-        <CardText>Bikes: {this.props.bikes} <br />
-          Cars: {this.props.cars}</CardText>
-        <CardSubtitle><u>Carpark</u></CardSubtitle>
-        <CardText><i class="fas fa-parking"></i>Free Spaces: <br /> {this.props.prognoses}</CardText>
-      </Card>
+      <div class="card detail-card" id="live-card">
+        <div class="card-body">
+          <h5 class="card-title">Live Data <FontAwesomeIcon icon={faSync} /></h5>
+          <h6>Flinkster & CallABike</h6>
+          <p class="card-text">Bikes: {state.bikes}</p>
+          <p class="card-text">Cars: {state.cars}</p>
+          <h6>Carpark <FontAwesomeIcon icon={faParking} /></h6>
+          <p class="card-text">Free Spaces: {state.prognoses}</p>
+        </div>
+      </div>
     );
   }
 }

@@ -17,7 +17,7 @@ class Meta extends React.Component {
       popoverOpen: false
     }
 
-    this.toggle = this.toggle.bind(this);
+    this.togglePopOver = this.togglePopOver.bind(this);
   }
 
   togglePopOver() {

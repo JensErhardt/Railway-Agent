@@ -51,7 +51,7 @@ class Station extends React.Component {
 
   render() {
     const state = this.state;
-
+    const id = this.props.match.params.id;
     return (
       this.state.stationDetail && <div className="station-detail">
         <Container>
@@ -60,6 +60,7 @@ class Station extends React.Component {
               bikes={state.rentalObjects.bikesAvailable}
               cars={state.rentalObjects.cars}
               prognoses={state.prognosesData.prognosesText}
+              id={id}
             />
             <Meta 
               name={state.stationDetail.railwaystationDetail.name}
