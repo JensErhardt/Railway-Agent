@@ -8,16 +8,17 @@ class Carparks extends Component {
       railwaystations: []
     }
   }
+
   componentDidMount() {
     api.getRailwaystations()
       .then(railwaystations => {
-        console.log(railwaystations)
         this.setState({
           railwaystations: railwaystations
         })
       })
       .catch(err => console.log(err))
   }
+
   render() {                
     return (
       <div className="Railwaystations">

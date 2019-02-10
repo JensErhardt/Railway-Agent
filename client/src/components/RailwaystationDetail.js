@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
-import { Table } from 'reactstrap';
 import api from '../api';
 import {
-  Button, Container, Row, Col, ListGroup, ListGroupItem, Card, CardImg, CardTitle, CardText, CardColumns,
-  CardSubtitle, CardBody, Jumbotron, Popover, PopoverHeader, PopoverBody
+  Button, Container, Card, CardTitle, CardText, CardColumns,
+  CardSubtitle, CardBody, Popover, PopoverHeader, PopoverBody
 } from 'reactstrap';
-import './RailwaystationDetail.css';
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faParking, faWheelchair, faSync, faStar } from '@fortawesome/free-solid-svg-icons'
+import './RailwaystationDetail.css';
 
 library.add(faParking, faWheelchair, faSync, faParking, faStar)
 
@@ -24,6 +23,7 @@ class RailwaystationDetail extends Component {
       popoverOpen: false
     }
   }
+
   componentDidMount() {
     api.getRailwaystationDetails(this.props.match.params.id)
       .then(stationDetail => {
@@ -54,11 +54,8 @@ class RailwaystationDetail extends Component {
   }
 
   handleFavoriteClick(e) {
-    console.log(this.props.match.params.id);
     let id = this.props.match.params.id
     api.postFavorite(id)
-    console.log("DEBUG handleFavoriteClick");
-
   }
 
   render() {

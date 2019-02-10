@@ -5,12 +5,9 @@ import './Railwaystations.css'
 
 import SearchBar from './SearchBar';
 import MapContainer from './MapContainer';
-import { Button, Container, Row, Col, ListGroup, ListGroupItem } from 'reactstrap';
+import { Container, Row, Col } from 'reactstrap';
 import Favorites from './Favorites';
 import RailwaystationDetail from './RailwaystationDetail';
-import './Railwaystations.css'
-
-
 
 
 class Railwaystations extends Component {
@@ -26,15 +23,13 @@ class Railwaystations extends Component {
     this.handleChange = this.handleChange.bind(this);
   }
 
-  handleToUpdate(args) {
-    console.log("DEBUG handleToUpdate")
+  handleToUpdate() {
     this.setState(prevState => ({
       showMap: !prevState.showMap
     }));
   }
 
   handleChange(event) {
-
     let value = event.target.value
     this.setState({ value: value });
     let comparator = value.toUpperCase();
@@ -48,9 +43,7 @@ class Railwaystations extends Component {
     let stateField = [];
     for (let i = 0; i < this.state.railwaystations.length; i++) {
       if (comparator === resultField[i]) {
-        console.log("MATCH", resultField[i])
         stateField.push(this.state.railwaystations[i])
-        console.log(stateField);
       }
     }
 
@@ -70,7 +63,6 @@ class Railwaystations extends Component {
   }
 
   render() {
-
     let handleToUpdate = this.handleToUpdate;
 
     let filteredStations = this.state.railwaystations
@@ -78,8 +70,6 @@ class Railwaystations extends Component {
 
     let isMap = this.state.showMap;
     let display;
-    console.log(this.props.match.params)
-
 
     if (!isMap) {
       display =
@@ -91,16 +81,13 @@ class Railwaystations extends Component {
           </Row>
           <React.Fragment>
             <Row>
-
               <ul class="list-group-horizontal" className="list-group-horizontal">
                 {filteredStations
                   .map((e) =>
                     <li class="list-group-item" key={e._id}><Link to={"/stations/" + e._id}>{e.name}</Link></li>)}
               </ul>
-
             </Row>
           </React.Fragment>
-
           <Row>
             <Col>
               {api.isLoggedIn() && <Favorites />}
@@ -109,9 +96,7 @@ class Railwaystations extends Component {
         </React.Fragment>
 
     } else {
-
       display =
-
         <React.Fragment>
           <React.Fragment>
             <Row>
@@ -129,7 +114,6 @@ class Railwaystations extends Component {
             </Col>
           </Row>
         </React.Fragment>
-
     }
 
     return (
@@ -148,8 +132,6 @@ class Railwaystations extends Component {
               <Route path="/stations/:id" component={RailwaystationDetail} />
             </Col> */}
           </Row>
-
-
         </Container>
       </div>
     );

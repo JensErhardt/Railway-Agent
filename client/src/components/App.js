@@ -13,13 +13,6 @@ import {
   Nav,
   NavItem,
   NavLink,
-  UncontrolledDropdown,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem,
-  Row,
-  Col,
-  Container
 } from 'reactstrap';
 
 class App extends Component {
@@ -52,15 +45,12 @@ class App extends Component {
   }
 
   handleLogoutClick(e) {
+    e.preventDefault();
     api.logout()
   }
 
-
-
   render() {
-
     let bindWord;
-
     if (!api.isLoggedIn()) {
       bindWord = <span>or</span>;
     }
@@ -69,13 +59,10 @@ class App extends Component {
       <div className="App">
         <div>
           <Navbar class="navbar" color="white" light expand="md">
-
             <span class="navbar-brand">
               <NavbarBrand href="/">Railway Agent
               <img class="nav-logo" src="/images/agent2-logo.svg" alt="" />
               </NavbarBrand>
-
-              
             </span>
             <NavbarToggler onClick={this.toggle} />
             <Collapse isOpen={this.state.isOpen} navbar>

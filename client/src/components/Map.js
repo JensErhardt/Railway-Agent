@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { Map } from 'google-maps-react';
+import React from 'react';
+
 
 export class Container extends React.Component {
   render() {

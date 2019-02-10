@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import api from '../api';
-import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
-
+import { Button, FormGroup, Input, FormText } from 'reactstrap';
 
 class Signup extends Component {
   constructor(props) {
@@ -43,7 +42,6 @@ class Signup extends Component {
 
         <h2>Signup</h2>
         <FormGroup className="container">
-
           <Input
             type="text"
             value={this.state.email}
@@ -52,16 +50,6 @@ class Signup extends Component {
             bSize="lg"
           />
           <FormText>Please enter email</FormText>
-
-          {/* <Input
-            type="text"
-            placeholder="johndoe"
-            value={this.state.name}
-            onChange={(e) => { this.handleInputChange("name", e) }}
-            bSize="lg"
-          />
-          <FormText>Please enter username</FormText> */}
-
           <Input
             type="password"
             placeholder="passwordigel123"
@@ -70,7 +58,6 @@ class Signup extends Component {
             bSize="lg"
           />
           <FormText>Please enter password</FormText>
-
           <Button color="primary" onClick={(e) => this.handleClick(e)}>Signup</Button>
         </FormGroup>
 
