@@ -1,6 +1,6 @@
-import { library } from '@fortawesome/fontawesome-svg-core'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faStar } from '@fortawesome/free-solid-svg-icons'
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faStar } from "@fortawesome/free-solid-svg-icons";
 
 import React from "react"
 
@@ -29,8 +29,9 @@ class Meta extends React.Component {
   async getMeta(id) {
     const response = await api.getRailwaystationDetails(id);
 
-    const name = response.railwaystationDetail.name;
-    const adress = response.railwaystationDetail.address;
+    const station = response.railwaystationDetail;
+    const name = station.name;
+    const adress = station.address;
 
     this.setState({
       name,

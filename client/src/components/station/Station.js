@@ -11,6 +11,7 @@ import './station.css';
 
 import Live from "./Live";
 import Meta from "./Meta";
+import Carpark from "./Carpark";
 
 library.add(faParking, faWheelchair, faSync, faParking, faStar)
 
@@ -58,7 +59,7 @@ class Station extends React.Component {
           <CardColumns>
             <Live id={id} />
             <Meta id={id} />
-            {this.renderCarpark()}
+            <Carpark id={id} />
           </CardColumns>
         </Container>
       </div>

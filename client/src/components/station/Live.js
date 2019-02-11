@@ -24,11 +24,11 @@ class Live extends React.Component {
       api.getRentalObjects(id),
       api.getCarparkPrognoses(id),
     ])
-      .then(data => {
+      .then(live => {
         this.setState({
-          bikes: data[0].bikesAvailable,
-          cars: data[0].carsAvailable,
-          prognoses: data[1].prognosesText,
+          bikes: live[0].bikesAvailable,
+          cars: live[0].carsAvailable,
+          prognoses: live[1].prognosesText,
         });
       })
       .catch(err => console.log(err));
