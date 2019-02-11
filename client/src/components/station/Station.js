@@ -50,25 +50,14 @@ class Station extends React.Component {
   }
 
   render() {
-    const state = this.state;
     const id = this.props.match.params.id;
+    
     return (
       this.state.stationDetail && <div className="station-detail">
         <Container>
           <CardColumns>
-            <Live 
-              bikes={state.rentalObjects.bikesAvailable}
-              cars={state.rentalObjects.cars}
-              prognoses={state.prognosesData.prognosesText}
-              id={id}
-            />
-            <Meta 
-              name={state.stationDetail.railwaystationDetail.name}
-              street={state.stationDetail.railwaystationDetail.street}
-              zipCode={state.stationDetail.railwaystationDetail.zipCode}
-              city={state.stationDetail.railwaystationDetail.city}
-              id={this.props.match.params.id}
-            />
+            <Live id={id} />
+            <Meta id={id} />
             {this.renderCarpark()}
           </CardColumns>
         </Container>

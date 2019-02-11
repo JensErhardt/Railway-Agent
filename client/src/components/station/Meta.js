@@ -4,7 +4,7 @@ import { faStar } from '@fortawesome/free-solid-svg-icons'
 
 import React from "react"
 
-import { Card, CardBody, Button, CardTitle, CardText, CardSubtitle, Popover, PopoverHeader, PopoverBody } from "reactstrap";
+import { Button, Popover, PopoverHeader, PopoverBody } from "reactstrap";
 import api from "../../api";
 
 library.add(faStar);
@@ -14,10 +14,30 @@ class Meta extends React.Component {
     super(props)
 
     this.state = {
+      name: "",
+      street: "",
+      zipCode: "",
+      city: "",
+
       popoverOpen: false
     }
 
+    this.getMeta = this.getMeta.bind(this);
     this.togglePopOver = this.togglePopOver.bind(this);
+  }
+
+  async getMeta(id) {
+    const response = await api.getRailwaystationDetails(id);
+
+    const name = response.railwaystationDetail.name;
+    const adress = response.railwaystationDetail.address;
+
+    this.setState({
+      name,
+      street: adress.street,
+      zipCode: adress.zipcode,
+      city: adress.city,
+    });
   }
 
   togglePopOver() {
@@ -26,26 +46,30 @@ class Meta extends React.Component {
     });
   }
 
-  handleFavoriteClick(e) {
+  saveFavorite(e) {
     e.preventDefault();
 
     const id = this.props.id
     api.postFavorite(id)
   }
 
+  componentDidMount() {
+    this.getMeta(this.props.id);
+  }
+
   render() {
-    const props = this.props;
+    const state = this.state;
 
     return (
-      <Card class="detail-card">
-        <CardBody id="station-card">
-          <CardTitle><strong><u>{props.name}</u></strong> </CardTitle>
-          <CardSubtitle>{props.street} <br />
-            {props.zipcode} {props.city} <br /></CardSubtitle>
-          <CardText></CardText>
+      <div class="card detail-card" id="live-card">
+        <div class="card-body">
+          <h5 class="card-title">{state.name}</h5>
+          <p class="card-text">{state.street} <br />
+            {state.zipCode} {state.city}
+          </p>
           {this.renderFavoriteButton()}
-        </CardBody>
-      </Card>
+        </div>    
+      </div>
     );
   }
 
@@ -53,7 +77,7 @@ class Meta extends React.Component {
     if (!api.isLoggedIn()) {
       return (
         <div>
-          <Button id="Popover1" onClick={this.toggle}>
+          <Button class="btn" id="Popover1" onClick={this.togglePopOver}>
             <FontAwesomeIcon icon="star" />
           </Button>
           <Popover placement="bottom" isOpen={this.state.popoverOpen} target="Popover1" toggle={this.togglePopOver}>
@@ -64,7 +88,7 @@ class Meta extends React.Component {
       )
     } else {
       return (
-        <Button id="btn-favorite" color="warning" onClick={(e) => this.handleFavoriteClick(e)}><FontAwesomeIcon icon="star" /></Button>
+        <Button id="btn-favorite" color="warning" onClick={(e) => this.saveFavorite(e)}><FontAwesomeIcon icon="star" /></Button>
       )
     }
   }
