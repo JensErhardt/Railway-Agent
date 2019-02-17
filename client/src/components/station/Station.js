@@ -52,7 +52,7 @@ class Station extends React.Component {
 
   render() {
     const id = this.props.match.params.id;
-    
+
     return (
       this.state.stationDetail && <div className="station-detail">
         <Container>
@@ -64,23 +64,6 @@ class Station extends React.Component {
         </Container>
       </div>
     );
-  }
-
-  renderCarpark() {
-    return (
-      <Card class="detail-card">
-        <CardBody id="carpark-card">
-          {/* <CardImg top width="1000" src="/images/carpark-symbol.png" alt="carpark-img" /> */}
-          <CardTitle><FontAwesomeIcon icon="parking" />   <strong><a target="_blank" href={this.state.stationDetail.carparkDetail.carparkUrl}>{this.state.stationDetail.carparkDetail.name}</a></strong> </CardTitle>
-          <CardSubtitle><strong>Entrance:</strong> <br />{this.state.stationDetail.carparkDetail.address.street} {this.state.stationDetail.carparkDetail.address.postalCode} {this.state.stationDetail.railwaystationDetail.address.city} <br />
-          </CardSubtitle>
-          <CardText>
-            <FontAwesomeIcon icon="wheelchair" /> Places: {this.state.stationDetail.carparkDetail.numberHandicapedPlaces} <br />
-            Total spaces: {this.state.stationDetail.carparkDetail.numberParkingPlaces}
-          </CardText>
-        </CardBody>
-      </Card>
-    )
   }
 }
 
