@@ -65,7 +65,7 @@ class Dashboard extends Component {
   render() {
     let handleToUpdate = this.handleToUpdate;
 
-    let filteredStations = this.state.railwaystations
+    let stations = this.state.railwaystations
       .filter(railwaystation => railwaystation.name.toUpperCase().includes(this.state.value.toUpperCase()))
 
     let isMap = this.state.showMap;
@@ -82,17 +82,12 @@ class Dashboard extends Component {
           <React.Fragment>
             <Row>
               <ul class="list-group-horizontal" className="list-group-horizontal">
-                {filteredStations
+                {stations
                   .map((e) =>
                     <li class="list-group-item" key={e._id}><Link to={"/stations/" + e._id}>{e.name}</Link></li>)}
               </ul>
             </Row>
           </React.Fragment>
-          <Row>
-            <Col>
-              {api.isLoggedIn() && <Favorites />}
-            </Col>
-          </Row>
         </React.Fragment>
 
     } else {
@@ -101,38 +96,78 @@ class Dashboard extends Component {
           <React.Fragment>
             <Row>
               <Col>
-                <div id="map-container"><MapContainer stations={filteredStations} />;</div>
+                <div id="map-container"><MapContainer stations={stations} />;</div>
               </Col>
               <Col>
                 <Route path="/stations/:id" component={Station} />
               </Col>
             </Row>
           </React.Fragment>
-          <Row>
-            <Col>
-              {api.isLoggedIn() && <Favorites />}
-            </Col>
-          </Row>
         </React.Fragment>
     }
 
     return (
-      <div className="Railwaystations">
-        <Container>
+      <div className="dashboard">
+        <div class="container">
           <SearchBar
             mapState={this.state.showMap}
             handleToUpdate={handleToUpdate.bind(this)}
             onChange={this.handleChange}
-            stations={this.state.railwaystations} />
-          <Row>
-            <Col>
-              {display}
-            </Col>
-          </Row>
-        </Container>
+            stations={this.state.railwaystations}
+          />
+          <div class="row">
+            {this.renderDashboard(stations)}
+          </div>
+        </div>
       </div>
     );
   }
+
+  renderDashboard(stations) {
+    const showMap = this.state.showMap;
+    console.log("renderDashboard", showMap)
+
+    if (showMap) {
+      this.renderMap(stations);
+      return;
+    }
+
+    this.renderList(stations);
+  }
+
+  renderMap(stations) {
+    console.log("renderMap")
+    return (
+      <React.Fragment>
+        <h1>Map</h1>
+      <div id="map-container">
+        <p>Map</p>
+        <MapContainer stations={stations} />
+      </div>
+      </React.Fragment>
+    )
+  }
+
+  renderList(stations) {
+    console.log("renderList")
+    return (
+      <ul class="list-group-horizontal" className="list-group-horizontal">
+        {stations.map((e) =>
+          <li class="list-group-item" key={e._id}><Link to={"/stations/" + e._id}>{e.name}</Link></li>)}
+      </ul>
+    );
+  }
+
+  renderFavorites() {
+    if (!api.isLoggedIn()) {
+      return;
+    }
+
+    return (
+      <Favorites />
+    );
+  }
+
 }
 
 export default Dashboard;
