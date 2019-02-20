@@ -18,6 +18,7 @@ class Dashboard extends Component {
       showMap: true,
 
     }
+    
     this.handleToUpdate = this.handleToUpdate.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
@@ -89,12 +90,11 @@ class Dashboard extends Component {
 
   renderDashboard(stations) {
     const showMap = this.state.showMap;
-
-    if (showMap) {
-      return this.renderMap(stations);
+    if (!showMap) {
+      return this.renderList(stations);
     }
 
-    return this.renderList(stations);
+    return this.renderMap(stations);
   }
 
   renderMap(stations) {

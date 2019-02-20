@@ -11,7 +11,7 @@ import './Favorites.css';
 library.add(faTrashAlt)
 
 class Favorites extends React.Component {
-  
+
   constructor(props) {
     super(props)
     this.state = {
@@ -19,54 +19,59 @@ class Favorites extends React.Component {
     }
   }
 
-  componentDidMount(props) { 
-    api.getFavorites(props)
-    .then(favoriteData => {
-      this.setState({
-        favorites: favoriteData,
-      })
-    })
+  async getFavorites() {
+    const response = await api.getFavorites();
+
+    const favorites = response;
+
+    this.setState({
+      favorites,
+    });
   }
 
-  handleFavoriteDeleteClick(id) {
-    api.deleteFavorite(id)
-    .then(_ => {
-      let newFavorites= [...this.state.favorites];
-      for ( let i = 0; i < this.state.favorites.length; i++) {
-        if (newFavorites[i]._id === this.state.favorites[i]._id) {
-          newFavorites.splice(i, 1)
-        }
-      }
-    this.setState({
-      favorites: newFavorites,
-      })
-     })
+  async delete(id) {
+    await api.deleteFavorite(id);
+
+    this.getFavorites();
   }
-  
+
+  componentDidMount() {
+    this.getFavorites();
+  }
+
   render() {
-      console.log(this.state.favorites)
-       let favoriteStations = this.state.favorites
-       // .filter(favoriteStations => favorite.name.toUpperCase().includes(this.state.value.toUpperCase()))
     return (
       <div class="fav-container">
-
         <h2>Pinned Stations</h2>
-        <ul class="list-group-horizontal" id="favorite-list">
-          {favoriteStations
-            .map((f) =>
-              <li 
-              class="list-group-item"
-              id="favorite-item"
-              favoriteId={f._id}>
-              <Link to={"/stations/" + f._id}>{f.name} </Link>
-              <FontAwesomeIcon 
-              onClick={_ => this.handleFavoriteDeleteClick(f._id)}
-              icon="trash-alt" />
-              </li>)}
-        </ul>
-      </div>  
+        {this.renderFavorites()}
+      </div>
     )
   }
+
+  renderFavorites() {
+    const favorites = this.state.favorites;
+
+    if (favorites.length === 0) {
+      return <p><i>No stations pinned yet</i></p>
+    }
+
+    return (
+      <ul class="list-group-horizontal" id="favorite-list">
+        {favorites.map((f) =>
+          <li
+            class="list-group-item"
+            id="favorite-item"
+            favoriteId={f._id}
+          >
+            <Link to={"/stations/" + f._id}>{f.name} </Link>
+            <button type="button" className="btn btn-danger" onClick={_ => this.delete(f._id)}>
+              <FontAwesomeIcon icon="trash-alt" />
+            </button>
+          </li>)}
+      </ul>
+    )
+  }
+
 }
 
 export default Favorites;
