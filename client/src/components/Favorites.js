@@ -1,10 +1,12 @@
-import React from 'react';
-import api from '../api';
-import { Link } from 'react-router-dom';
-import './Favorites.css';
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrashAlt } from '@fortawesome/free-solid-svg-icons'
+
+import React from 'react';
+import { Link } from 'react-router-dom';
+
+import api from '../api';
+import './Favorites.css';
 
 library.add(faTrashAlt)
 

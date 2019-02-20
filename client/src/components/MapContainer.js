@@ -33,7 +33,7 @@ export class MapContainer extends Component {
 
   render() {
     return (
-      <div>
+      <React.Fragment>
         <Map
           google={this.props.google}
           zoom={5.5}
@@ -62,7 +62,7 @@ export class MapContainer extends Component {
             <a href={"/stations/" + this.state.activeStation._id}>Show Details and live data</a>
           </InfoWindow>
         </Map>
-      </div>
+      </React.Fragment>
     );
   }
 }
