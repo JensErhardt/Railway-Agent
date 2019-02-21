@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import api from '../api';
-import { Button, FormGroup, Input, FormText } from 'reactstrap';
 
 class Signup extends Component {
   constructor(props) {
     super(props)
+    
     this.state = {
       email: "",
       name: "",
@@ -21,45 +21,41 @@ class Signup extends Component {
 
   handleClick(e) {
     e.preventDefault()
-    let data = {
+    
+    const data = {
       email: this.state.email,
       name: this.state.name,
       password: this.state.password,
     }
     api.signup(data)
-      .then(result => {
-        console.log('SUCCESS!')
-        this.props.history.push("/login") // Redirect to the login page
+      .then(() => {
+        this.props.history.push("/login") 
       })
       .catch(err => {
-        console.log('ERROR')
+        console.log(err)
       })
   }
 
   render() {
     return (
-      <div className="Signup">
+      <div className="container">
 
         <h2>Signup</h2>
-        <FormGroup className="container">
-          <Input
+        <div className="form-group">
+          <input
             type="text"
             value={this.state.email}
             placeholder="johndoe@gmail.com"
             onChange={(e) => { this.handleInputChange("email", e) }}
-            bSize="lg"
           />
-          <FormText>Please enter email</FormText>
-          <Input
+          <input
             type="password"
             placeholder="passwordigel123"
             value={this.state.password}
             onChange={(e) => { this.handleInputChange("password", e) }}
-            bSize="lg"
           />
-          <FormText>Please enter password</FormText>
-          <Button color="primary" onClick={(e) => this.handleClick(e)}>Signup</Button>
-        </FormGroup>
+          <button className="btn btn-primary" onClick={(e) => this.handleClick(e)}>Signup</button>
+        </div>
 
       </div>
     );
