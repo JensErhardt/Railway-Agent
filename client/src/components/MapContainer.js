@@ -8,7 +8,7 @@ export class MapContainer extends Component {
     activeStation: {}
   }
 
-  handleMarkerClick(props, marker, e) {
+  handleMarkerClick(props, marker) {
     this.setState({
       isOpen: true,
       activeMarker: marker,
@@ -19,30 +19,33 @@ export class MapContainer extends Component {
     })
   }
 
-  handleToggleOpen = () => {
+  handleToggleOpen() {
     this.setState({
       isOpen: true
     });
   }
 
-  handleToggleClose = () => {
+  handleToggleClose() {
     this.setState({
       isOpen: false
     });
   }
 
   render() {
+    const state = this.state;
+    const props = this.props;
+
     return (
       <React.Fragment>
         <Map
-          google={this.props.google}
+          google={props.google}
           zoom={5.5}
           initialCenter={{
             lat: 51.0377345,
             lng: 10.4124887
           }}
         >
-          {this.props.stations.map((marker) =>
+          {props.stations.map((marker) =>
             <Marker
               onClick={this.handleMarkerClick.bind(this)}
               position={{
@@ -55,11 +58,11 @@ export class MapContainer extends Component {
               _id={marker._id}
             />
           )}
-          <InfoWindow marker={this.state.activeMarker} visible>
+          <InfoWindow marker={state.activeMarker} visible>
             <br /><p>
-              <strong>{this.state.activeStation.name}</strong>
+              <strong>{state.activeStation.name}</strong>
             </p>
-            <a href={"/stations/" + this.state.activeStation._id}>Show Details and live data</a>
+            <a href={"/stations/" + state.activeStation._id}>Show Details and live data</a>
           </InfoWindow>
         </Map>
       </React.Fragment>

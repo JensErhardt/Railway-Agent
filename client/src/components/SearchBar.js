@@ -1,56 +1,40 @@
-import React, { Component } from 'react';
-import {
-  Button, Label, Input, InputGroup,
-  InputGroupAddon, Container
-} from 'reactstrap';
-import { library } from '@fortawesome/fontawesome-svg-core'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faMapMarkerAlt, faListUl } from '@fortawesome/free-solid-svg-icons'
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faMapMarkerAlt, faListUl } from '@fortawesome/free-solid-svg-icons';
+
+import React, { PureComponent } from 'react';
+
 import './SearchBar.css';
 
 library.add(faMapMarkerAlt, faListUl)
 
-class Searchbar extends Component {
-  render() {
-
-    var handleToUpdate = this.props.handleToUpdate;
-
-    let buttonIcon;
-
-    if (this.props.mapState) {
-      buttonIcon = <FontAwesomeIcon icon="list-ul" />
-    } else {
-      buttonIcon = buttonIcon = <FontAwesomeIcon icon="map-marker-alt" />
-    }
+class Searchbar extends PureComponent {
+  render() {  
+    const props = this.props;
 
     return (
-      <div className="search-bar">
-        <Container>
-
-          <InputGroup>
-            <Label for="exampleSearch"></Label>
-            <Input
-              className="mb-3 mt-2"
+      <div className="search-bar container">
+          <div className="input-group">
+            <input
+              className="form-control mb-3 mt-2"
               type="text"
               name="search"
               id="searchInput"
               placeholder="Search for station or city..."
-              value={this.props.value}
-              onChange={this.props.onChange}
-              size="lg"
+              value={props.value}
+              onChange={props.onChange}
             />
-            <InputGroupAddon
+            <div className="input-group-append"
               addonType="append">
-              <Button
+              <button
+                className="btn btn-primary"
                 id="search-button"
                 className="mb-3 mt-2"
-                onClick={() => handleToUpdate()}
-                color="primary">{buttonIcon}
-              </Button>
-            </InputGroupAddon>
-          </InputGroup>
-
-        </Container>
+                onClick={() => props.handleToUpdate()}
+              > <FontAwesomeIcon icon={props.mapState ? "list-ul" : "map-marker-alt"} />
+              </button>
+            </div>
+          </div>
       </div>
     )
   }
