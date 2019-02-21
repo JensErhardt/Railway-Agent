@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
+
 import api from '../api';
-import { Button, FormGroup, Input, FormText } from 'reactstrap';
 
 class Login extends Component {
   constructor(props) {
@@ -9,9 +9,11 @@ class Login extends Component {
       email: "",
       password: "",
     }
+
+    this.handleChange = this.handleChange.bind(this);
   }
 
-  handleInputChange(stateFieldName, event) {
+  handleChange(stateFieldName, event) {
     let newState = {}
     newState[stateFieldName] = event.target.value
 
@@ -20,9 +22,16 @@ class Login extends Component {
 
   handleClick(e) {
     e.preventDefault()
-    api.login(this.state.email, this.state.password)
-      .then(result => {
-        this.props.history.push("/") 
+    this.logIn()
+  }
+
+  logIn() {
+    const user = this.state.email;
+    const pw = this.state.password;
+
+    api.login(user, pw)
+      .then(() => {
+        this.props.history.push("/")
       })
       .catch(err => {
         console.log(err)
@@ -30,28 +39,26 @@ class Login extends Component {
   }
 
   render() {
+    const state = this.state;
+
     return (
-      <div className="Login">
+      <div className="container">
         <h2>Login</h2>
-        <FormGroup className="container">
-          <Input
+        <div className="form-group">
+          <input
             type="text"
-            value={this.state.email}
-            onChange={(e) => { this.handleInputChange("email", e) }}
+            value={state.email}
+            onChange={(e) => { this.handleChange("email", e) }}
             placeholder="email..."
-            bSize="lg"
           />
-          <FormText>Please enter email</FormText>
-          <Input
+          <input
             type="password"
-            value={this.state.password}
-            onChange={(e) => { this.handleInputChange("password", e) }}
+            value={state.password}
+            onChange={(e) => { this.handleChange("password", e) }}
             placeholder="password..."
-            bSize="lg"
           />
-          <FormText>Please enter password</FormText>
-          <Button color="primary" onClick={(e) => this.handleClick(e)}>Login</Button>
-        </FormGroup>
+          <button className="btn btn-primary" onClick={(e) => this.handleClick(e)}>Login</button>
+        </div>
       </div>
     );
   }

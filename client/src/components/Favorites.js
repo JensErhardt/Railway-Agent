@@ -71,7 +71,6 @@ class Favorites extends React.Component {
       </ul>
     )
   }
-
 }
 
 export default Favorites;
